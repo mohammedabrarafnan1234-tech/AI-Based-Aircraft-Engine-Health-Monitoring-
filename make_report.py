@@ -237,9 +237,9 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
         ],
         [
             Paragraph("1.6", st["cell"]),
-            Paragraph("Prepare Report 1 and LinkedIn post", st["cell"]),
+            Paragraph("Prepare Report 1", st["cell"]),
             Paragraph("Done", st["cell"]),
-            Paragraph("Report 1 written and verified. Professional LinkedIn post copy (<code>results/linkedin_sprint1_post.txt</code>) and visual share card (<code>results/linkedin_sprint1_image.png</code>) prepared.", st["cell"]),
+            Paragraph("Report 1 written, verified, and compiled to publication-standard PDF format.", st["cell"]),
         ],
     ]
 
@@ -589,9 +589,9 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
         ],
         [
             Paragraph("2.5", st["cell"]),
-            Paragraph("Plots: predicted vs. true RUL per test engine; Report 2 and LinkedIn post", st["cell"]),
+            Paragraph("Plots: predicted vs. true RUL per test engine; Report 2", st["cell"]),
             Paragraph("Done", st["cell"]),
-            Paragraph("All benchmark plots generated in <code>results/</code>: predictions vs. true, error distributions, loss curves, and NASA scoring curve. LinkedIn post and share graphics prepared.", st["cell"]),
+            Paragraph("All benchmark plots generated in <code>results/</code>: predictions vs. true, error distributions, loss curves, and NASA scoring curve.", st["cell"]),
         ],
     ]
 

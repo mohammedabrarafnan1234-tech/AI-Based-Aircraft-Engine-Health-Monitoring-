@@ -643,97 +643,9 @@ np.save(r"{pred_file}", preds)
     print(f"✓ Saved NASA asymmetric score curve to {nasa_curve_path}")
 
     # --------------------------------------------------------------------------
-    # STEP 8: GENERATE LINKEDIN ASSETS (TEXT + IMAGES)
+    # STEP 8: MILESTONE SUMMARY
     # --------------------------------------------------------------------------
-    # Sprint 1 LinkedIn Post Text
-    sprint1_post = f"""🚀 Sprint 1 Completed: AI-Based Aircraft Engine Health Monitoring & RUL Estimation
-
-Proud to share the foundational milestone of my M.Sc. Data Science Capstone Project at IU International University of Applied Sciences, supervised by Dr. Humera Noor.
-
-In commercial aviation, scheduling engine overhauls at fixed intervals wastes up to 30% of useful component life, while reactive repairs risk catastrophic in-flight failures. 
-
-For Sprint 1, I built a leak-free prognostic preprocessing pipeline on NASA's C-MAPSS dataset:
-🔹 Sensor Invariance Auditing: Flagged 7 constant sensors (T2, P2, P15, epr, farB, Nf_dmd, PCNfR_dmd) and pruned them to retain 14 active thermodynamic wear channels.
-🔹 Piecewise-Linear Target Formulation: Capped healthy engine life at 125 cycles to model physical degradation inception.
-🔹 Leak-Free Normalisation: Partitioned 100 engines by unit ID (80% fit / 20% val), ensuring scalers learn strictly from training units.
-🔹 Sliding Windows: Formatted 17,731 temporal sequences (30 cycles x 14 sensors) for deep learning.
-
-Next stop: Benchmarking Random Forest, XGBoost, LSTM, and 1D-CNN in Sprint 2!
-
-#PredictiveMaintenance #DataScience #Aviation #MachineLearning #DeepLearning #Python #Prognostics #PHM
-"""
-    with open(os.path.join(out_dir, "linkedin_sprint1_post.txt"), "w") as f:
-        f.write(sprint1_post)
-
-    # Sprint 2 LinkedIn Post Text
-    sprint2_post = f"""✈️ Sprint 2 Completed: Classical Baselines vs. Deep Learning for Turbofan RUL Estimation
-
-Excited to share the benchmark results of Sprint 2 for my M.Sc. Capstone on NASA's C-MAPSS FD001 dataset!
-
-When predicting Remaining Useful Life (RUL), standard RMSE doesn't tell the whole story. In aviation, predicting late (overestimating engine life) is exponentially more dangerous than predicting early. The NASA asymmetric score penalizes late predictions up to 3x more heavily than conservative early predictions.
-
-🏆 Quantitative Results on 100 Test Engines:
-1️⃣ PyTorch 1D-CNN: RMSE {cnn_metrics['rmse']} cycles | NASA Score: {cnn_metrics['nasa_score']} (Fastest training & best score)
-2️⃣ PyTorch Stacked LSTM: RMSE {lstm_metrics['rmse']} cycles | NASA Score: {lstm_metrics['nasa_score']}
-3️⃣ XGBoost Regressor: RMSE {xgb_metrics['rmse']} cycles | NASA Score: {xgb_metrics['nasa_score']}
-4️⃣ Random Forest: RMSE {rf_metrics['rmse']} cycles | NASA Score: {rf_metrics['nasa_score']}
-
-💡 Key Takeaway: The 1D-CNN achieved the lowest NASA penalty because its residual errors skewed conservative (early), protecting airlines against unplanned in-service groundings.
-
-Moving into Sprint 3: Bayesian hyperparameter tuning with Optuna and uncertainty quantification (Monte Carlo Dropout)!
-
-#MachineLearning #DeepLearning #PyTorch #PredictiveMaintenance #Aerospace #DataScience #AI
-"""
-    with open(os.path.join(out_dir, "linkedin_sprint2_post.txt"), "w") as f:
-        f.write(sprint2_post)
-
-    # Generate Professional LinkedIn Share Images
-    def create_linkedin_card(title, subtitle, metric_lines, filename):
-        img = Image.new("RGB", (1200, 628), color="#0F172A")
-        draw = ImageDraw.Draw(img)
-        # Background accents
-        draw.rectangle([0, 0, 1200, 16], fill="#38BDF8")
-        draw.rectangle([60, 60, 1140, 568], outline="#334155", width=2)
-        
-        # Simple text drawing (default font fallback safe)
-        draw.text((90, 90), "CAPSTONE PROJECT MILESTONE", fill="#38BDF8")
-        draw.text((90, 130), title, fill="#FFFFFF")
-        draw.text((90, 180), subtitle, fill="#94A3B8")
-        draw.text((90, 240), "STUDENT: Mohammed Abrar (Matriculation No. 97193111)", fill="#E2E8F0")
-        draw.text((90, 270), "SUPERVISOR: Dr. Humera Noor | IU International University of Applied Sciences", fill="#E2E8F0")
-
-        y_pos = 340
-        for line in metric_lines:
-            draw.text((90, y_pos), line, fill="#F8FAFC")
-            y_pos += 45
-
-        draw.text((90, 520), "#PredictiveMaintenance #DataScience #MachineLearning #PyTorch #Aviation", fill="#38BDF8")
-        img.save(os.path.join(out_dir, filename))
-
-    create_linkedin_card(
-        "Sprint 1: Data Understanding & Working Preprocessing Pipeline",
-        "Turbofan Engine RUL Estimation with NASA C-MAPSS Benchmark",
-        [
-            "✓ Full C-MAPSS FD001 Dataset Ingested (20,631 cycles across 100 run-to-failure engines)",
-            "✓ Sensor Invariance Audit: 7 constant channels dropped, 14 active wear features retained",
-            "✓ Piecewise-Linear Target Capped at 125 cycles | 30-Cycle Sliding Windows Generated",
-            "✓ Strict Engine-Unit Isolation: 80% Fit / 20% Val to guarantee ZERO data leakage"
-        ],
-        "linkedin_sprint1_image.png"
-    )
-
-    create_linkedin_card(
-        "Sprint 2: Classical Baselines vs. Deep Learning Benchmark",
-        "Comparative Evaluation on 100 Test Turbofan Engines (C-MAPSS FD001)",
-        [
-            f"✓ PyTorch 1D-CNN:  RMSE {cnn_metrics['rmse']} Cycles  |  NASA Score: {cnn_metrics['nasa_score']}  (Best Overall)",
-            f"✓ PyTorch LSTM:    RMSE {lstm_metrics['rmse']} Cycles  |  NASA Score: {lstm_metrics['nasa_score']}",
-            f"✓ XGBoost Trees:   RMSE {xgb_metrics['rmse']} Cycles  |  NASA Score: {xgb_metrics['nasa_score']}",
-            f"✓ Random Forest:   RMSE {rf_metrics['rmse']} Cycles  |  NASA Score: {rf_metrics['nasa_score']}"
-        ],
-        "linkedin_sprint2_image.png"
-    )
-    print("✓ Saved LinkedIn post texts and graphic cards.")
+    print("✓ Benchmark metrics and evaluation plots generated successfully.")
 
     # --------------------------------------------------------------------------
     # STEP 9: GENERATE REPORT SNIPPETS (MARKDOWN)

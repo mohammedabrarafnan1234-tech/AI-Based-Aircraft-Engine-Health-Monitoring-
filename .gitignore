@@ -44,6 +44,8 @@ venv.bak/
 Icon
 ._*
 *.textClipping
+*linkedin*
+*LinkedIn*
 
 
 # Data & Model weights (prevent committing large binary dumps)
