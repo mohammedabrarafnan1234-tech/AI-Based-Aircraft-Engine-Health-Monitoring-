@@ -2,7 +2,7 @@
 **AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance Decision Support Using Remaining Useful Life Estimation**  
 **Student:** Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc.  
 **Supervisor:** Dr. Humera Noor | **Sprint 2:** 9 – 23 Nov 2026  
-**GitHub Repository:** [https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring](https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring)
+**GitHub Repository:** [https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-](https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-)
 
 ---
 
