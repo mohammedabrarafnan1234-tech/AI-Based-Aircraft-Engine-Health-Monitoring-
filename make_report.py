@@ -179,8 +179,8 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     meta_text = (
         "<b>Student:</b> Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc. | "
         "<b>Supervisor:</b> Dr. Humera Noor | <b>Sprint 1:</b> 26 Oct – 9 Nov 2026<br/>"
-        "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrar/ai-engine-health-monitoring\" color=\"#2E86AB\">"
-        "<u>https://github.com/mohammedabrar/ai-engine-health-monitoring</u></link>"
+        "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring\" color=\"#2E86AB\">"
+        "<u>https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring</u></link>"
     )
     story.append(Paragraph(meta_text, st["meta"]))
     story.append(Spacer(1, 6))
@@ -202,7 +202,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("1.2", st["cell"]),
             Paragraph("Download C-MAPSS (FD001–FD004); GitHub repo, environment, folder structure", st["cell"]),
             Paragraph("Done (FD001–FD004)", st["cell"]),
-            Paragraph("All four C-MAPSS sub-datasets (FD001–FD004) downloaded and verified in <code>data/raw/</code> (265,963 total records across train, test, and RUL files). GitHub repository established: <link href=\"https://github.com/mohammedabrar/ai-engine-health-monitoring\" color=\"#2E86AB\"><u>github.com/mohammedabrar/ai-engine-health-monitoring</u></link>. Python 3.12 virtual environment (.venv) configured.", st["cell"]),
+            Paragraph("All four C-MAPSS sub-datasets (FD001–FD004) downloaded and verified in <code>data/raw/</code> (265,963 total records across train, test, and RUL files). GitHub repository established: <link href=\"https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring\" color=\"#2E86AB\"><u>github.com/mohammedabrar/ai-engine-health-monitoring</u></link>. Python 3.12 virtual environment (.venv) configured.", st["cell"]),
         ],
         [
             Paragraph("1.3", st["cell"]),
@@ -541,8 +541,8 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
     meta_text = (
         "<b>Student:</b> Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc. | "
         "<b>Supervisor:</b> Dr. Humera Noor | <b>Sprint 2:</b> 9 – 23 Nov 2026<br/>"
-        "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrar/ai-engine-health-monitoring\" color=\"#2E86AB\">"
-        "<u>https://github.com/mohammedabrar/ai-engine-health-monitoring</u></link>"
+        "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring\" color=\"#2E86AB\">"
+        "<u>https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring</u></link>"
     )
     story.append(Paragraph(meta_text, st["meta"]))
     story.append(Spacer(1, 6))

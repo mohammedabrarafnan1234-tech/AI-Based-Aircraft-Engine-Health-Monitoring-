@@ -2,7 +2,7 @@
 **AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance Decision Support Using Remaining Useful Life Estimation**  
 **Student:** Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc.  
 **Supervisor:** Dr. Humera Noor | **Sprint 1:** 26 Oct – 9 Nov 2026  
-**GitHub Repository:** [https://github.com/mohammedabrar/ai-engine-health-monitoring](https://github.com/mohammedabrar/ai-engine-health-monitoring)
+**GitHub Repository:** [https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring](https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring)
 
 ---
 
@@ -12,7 +12,7 @@ Status of each planned Sprint 1 task from the project plan. Detailed results are
 | ID | Planned task (from project plan) | Status | Comments / results |
 | :--- | :--- | :--- | :--- |
 | **1.1** | Literature review: RUL prediction, LSTM/CNN, cost-based maintenance (10–15 papers) | **Done (core set of 12)** | Core set of 12 foundational papers reviewed with structured notes and reference citations below (Saxena 2008, Heimes 2008, Zheng 2017, Li 2018, Camci 2009, Jardine 2006, Babu 2016, Wu 2018, Ellefsen 2019, Al-Dulaimi 2019, Gal 2016, Wang 2020). Target was 10–15; 3 additional papers will be added for the final thesis report. |
-| **1.2** | Download C-MAPSS (FD001–FD004); GitHub repo, environment, folder structure | **Done (FD001–FD004)** | All four C-MAPSS sub-datasets (FD001–FD004) downloaded and verified in `data/raw/` (265,963 total records across train, test, and RUL files). GitHub repository established: [github.com/mohammedabrar/ai-engine-health-monitoring](https://github.com/mohammedabrar/ai-engine-health-monitoring). Python 3.12 virtual environment (.venv) configured. |
+| **1.2** | Download C-MAPSS (FD001–FD004); GitHub repo, environment, folder structure | **Done (FD001–FD004)** | All four C-MAPSS sub-datasets (FD001–FD004) downloaded and verified in `data/raw/` (265,963 total records across train, test, and RUL files). GitHub repository established: [github.com/mohammedabrar/ai-engine-health-monitoring](https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring). Python 3.12 virtual environment (.venv) configured. |
 | **1.3** | Exploratory data analysis: sensor trends, correlations, constant sensors | **Done (full data)** | Full EDA completed across 100 training engines (20,631 flight cycles, lifetimes 128–362 cycles, mean 206.31, std 46.34). Flagged 7 constant sensors (`s1, s5, s6, s10, s16, s18, s19`) with variance = 0 and pruned them, retaining 14 active degradation channels. Full sensor trends and Pearson correlation matrix generated in `results/charts/`. |
 | **1.4** | Preprocessing: drop uninformative sensors, normalisation, split by engine | **Done (full data)** | 7 constant sensors and 3 invariant operating settings dropped (14 channels kept). Min-Max normalisation fitted strictly on 80 training engines (zero data leakage to the 20 validation or 100 test engines). Passed validation audit. |
 | **1.5** | RUL labelling (piece-wise linear, cap about 125) and sliding windows (30 cycles) | **Done (full data)** | Piecewise-linear RUL capped at 125 cycles; 30-cycle sliding windows generated: 17,731 training windows of shape (30, 14), 100 test windows of shape (30, 14), and 84 tabular window statistics (17,731 x 84). |

@@ -340,7 +340,7 @@ Supervisor:      Dr. Humera Noor
 Milestone:       Report 2 (Sprint 2)
 Due Date:        23 November 2026
 Status:          COMPLETED & SUBMISSION READY
-GitHub:          https://github.com/mohammedabrar/ai-engine-health-monitoring
+GitHub:          https://github.com/mohammedabrarafnan1234-tech/ai-engine-health-monitoring
 ========================================================================================
 
 1. EXECUTIVE SUMMARY & OBJECTIVES ACHIEVED
