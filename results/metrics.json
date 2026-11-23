@@ -1,0 +1,43 @@
+{
+  "dataset": "FD001",
+  "train_engines": 100,
+  "test_engines": 100,
+  "models": {
+    "Random Forest": {
+      "rmse": 16.45,
+      "mae": 12.2,
+      "nasa_score": 630.6,
+      "late_pct": 57.0,
+      "early_pct": 43.0,
+      "max_early": -42.2,
+      "max_late": 50.5
+    },
+    "XGBoost": {
+      "rmse": 16.53,
+      "mae": 12.2,
+      "nasa_score": 541.6,
+      "late_pct": 56.0,
+      "early_pct": 44.0,
+      "max_early": -53.6,
+      "max_late": 46.5
+    },
+    "LSTM": {
+      "rmse": 13.73,
+      "mae": 10.21,
+      "nasa_score": 402.7,
+      "late_pct": 47.0,
+      "early_pct": 53.0,
+      "max_early": -35.4,
+      "max_late": 46.2
+    },
+    "1D-CNN": {
+      "rmse": 16.33,
+      "mae": 12.06,
+      "nasa_score": 684.9,
+      "late_pct": 57.0,
+      "early_pct": 43.0,
+      "max_early": -48.8,
+      "max_late": 53.6
+    }
+  }
+}

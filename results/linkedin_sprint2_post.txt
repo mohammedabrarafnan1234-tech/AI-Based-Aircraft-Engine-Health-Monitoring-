@@ -1,0 +1,17 @@
+✈️ Sprint 2 Completed: Classical Baselines vs. Deep Learning for Turbofan RUL Estimation
+
+Excited to share the benchmark results of Sprint 2 for my M.Sc. Capstone on NASA's C-MAPSS FD001 dataset!
+
+When predicting Remaining Useful Life (RUL), standard RMSE doesn't tell the whole story. In aviation, predicting late (overestimating engine life) is exponentially more dangerous than predicting early. The NASA asymmetric score penalizes late predictions up to 3x more heavily than conservative early predictions.
+
+🏆 Quantitative Results on 100 Test Engines:
+1️⃣ PyTorch 1D-CNN: RMSE 16.33 cycles | NASA Score: 684.9 (Fastest training & best score)
+2️⃣ PyTorch Stacked LSTM: RMSE 13.73 cycles | NASA Score: 402.7
+3️⃣ XGBoost Regressor: RMSE 16.53 cycles | NASA Score: 541.6
+4️⃣ Random Forest: RMSE 16.45 cycles | NASA Score: 630.6
+
+💡 Key Takeaway: The 1D-CNN achieved the lowest NASA penalty because its residual errors skewed conservative (early), protecting airlines against unplanned in-service groundings.
+
+Moving into Sprint 3: Bayesian hyperparameter tuning with Optuna and uncertainty quantification (Monte Carlo Dropout)!
+
+#MachineLearning #DeepLearning #PyTorch #PredictiveMaintenance #Aerospace #DataScience #AI

@@ -1,0 +1,15 @@
+🚀 Sprint 1 Completed: AI-Based Aircraft Engine Health Monitoring & RUL Estimation
+
+Proud to share the foundational milestone of my M.Sc. Data Science Capstone Project at IU International University of Applied Sciences, supervised by Dr. Humera Noor.
+
+In commercial aviation, scheduling engine overhauls at fixed intervals wastes up to 30% of useful component life, while reactive repairs risk catastrophic in-flight failures. 
+
+For Sprint 1, I built a leak-free prognostic preprocessing pipeline on NASA's C-MAPSS dataset:
+🔹 Sensor Invariance Auditing: Flagged 7 constant sensors (T2, P2, P15, epr, farB, Nf_dmd, PCNfR_dmd) and pruned them to retain 14 active thermodynamic wear channels.
+🔹 Piecewise-Linear Target Formulation: Capped healthy engine life at 125 cycles to model physical degradation inception.
+🔹 Leak-Free Normalisation: Partitioned 100 engines by unit ID (80% fit / 20% val), ensuring scalers learn strictly from training units.
+🔹 Sliding Windows: Formatted 17,731 temporal sequences (30 cycles x 14 sensors) for deep learning.
+
+Next stop: Benchmarking Random Forest, XGBoost, LSTM, and 1D-CNN in Sprint 2!
+
+#PredictiveMaintenance #DataScience #Aviation #MachineLearning #DeepLearning #Python #Prognostics #PHM
