@@ -1,7 +1,7 @@
 # Progress Report 2 (due 23 Nov 2026)
 **AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance Decision Support Using Remaining Useful Life Estimation**  
-**Student:** Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc.  
-**Supervisor:** Dr. Humera Noor | **Sprint 2:** 9 – 23 Nov 2026  
+**University of Europe for Applied Sciences — M.Sc. Data Science Capstone**  
+**Student:** Mohammed Abrar (Matriculation No. 97193111) | **Supervisor:** Dr. Humera Noor | **Sprint 2:** 9 – 23 Nov 2026  
 **GitHub Repository:** [https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-](https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-)
 
 ---

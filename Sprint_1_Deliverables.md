@@ -334,7 +334,7 @@ The Capstone project is structured following production Python data science stan
 ```
 ========================================================================================
                       CAPSTONE PROJECT PROGRESS REPORT 1
-                 M.Sc. Data Science -- Academic Year 2026/2027
+          University of Europe for Applied Sciences -- M.Sc. Data Science (2026/2027)
 ========================================================================================
 Project Title:   AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance 
                  Decision Support Using Remaining Useful Life Estimation

@@ -1,6 +1,6 @@
 # AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance Decision Support Using Remaining Useful Life Estimation
 
-**M.Sc. Data Science Capstone Project (Winter 2026/2027)**  
+**University of Europe for Applied Sciences — M.Sc. Data Science Capstone Project (2026/2027)**  
 **Student:** Mohammed Abrar (Matriculation No. 97193111)  
 **Supervisor:** Dr. Humera Noor  
 

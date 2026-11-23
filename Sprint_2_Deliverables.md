@@ -330,7 +330,7 @@ Sprint 3 (covering 23 November 2026 through 7 December 2026) will expand upon th
 ```
 ========================================================================================
                       CAPSTONE PROJECT PROGRESS REPORT 2
-                 M.Sc. Data Science -- Academic Year 2026/2027
+          University of Europe for Applied Sciences -- M.Sc. Data Science (2026/2027)
 ========================================================================================
 Project Title:   AI-Based Aircraft Engine Health Monitoring and Cost-Aware Maintenance 
                  Decision Support Using Remaining Useful Life Estimation

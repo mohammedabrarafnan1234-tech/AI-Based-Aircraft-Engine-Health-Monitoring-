@@ -2,7 +2,7 @@
 """
 PDF Report Generator for Capstone Milestones using ReportLab.
 Produces Progress_Report_1.pdf and Progress_Report_2.pdf matching the exact
-academic format, tables, figures, and branding of the IU Data Science Capstone.
+academic format, tables, figures, and branding of the University of Europe for Applied Sciences M.Sc. Data Science Capstone.
 
 Fully addresses all academic integrity requirements, verified citations, and specific URLs:
 1. Report 1 Citations:
@@ -81,7 +81,7 @@ class NumberedCanvas(canvas.Canvas):
         self.drawRightString(8.5 * inch - 54, 11 * inch - 36, f"Page {self._pageNumber} of {total_pages}")
 
         # Footer
-        self.drawString(54, 36, f"IU International University of Applied Sciences — M.Sc. Data Science Capstone")
+        self.drawString(54, 36, f"University of Europe for Applied Sciences — M.Sc. Data Science Capstone")
         self.drawRightString(8.5 * inch - 54, 36, f"Page {self._pageNumber} of {total_pages}")
         self.restoreState()
 
@@ -191,6 +191,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     story.append(Spacer(1, 3))
     meta_text = (
         "<b>Student:</b> Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc. | "
+        "<b>University of Europe for Applied Sciences</b><br/>"
         "<b>Supervisor:</b> Dr. Humera Noor | <b>Sprint 1:</b> 26 Oct – 9 Nov 2026<br/>"
         "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-\" color=\"#2E86AB\">"
         "<u>https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-</u></link>"
@@ -549,6 +550,7 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
     story.append(Spacer(1, 3))
     meta_text = (
         "<b>Student:</b> Mohammed Abrar (Matriculation No. 97193111), Data Science M.Sc. | "
+        "<b>University of Europe for Applied Sciences</b><br/>"
         "<b>Supervisor:</b> Dr. Humera Noor | <b>Sprint 2:</b> 9 – 23 Nov 2026<br/>"
         "<b>GitHub Repository:</b> <link href=\"https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-\" color=\"#2E86AB\">"
         "<u>https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-</u></link>"
