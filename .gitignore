@@ -43,6 +43,8 @@ venv.bak/
 .LSOverride
 Icon
 ._*
+*.textClipping
+
 
 # Data & Model weights (prevent committing large binary dumps)
 data/raw/*.zip
