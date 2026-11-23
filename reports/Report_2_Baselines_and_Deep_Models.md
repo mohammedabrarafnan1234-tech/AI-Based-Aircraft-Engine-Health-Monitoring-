@@ -12,15 +12,17 @@ Status of each planned Sprint 2 task from the project plan. Detailed results are
 | ID | Planned task (from project plan) | Status | Comments / results |
 | :--- | :--- | :--- | :--- |
 | **2.1** | Implement metrics: RMSE and NASA asymmetric score; evaluation function | **Done** | Implemented and verified in `src/utils/metrics.py` and `capstone_run.py`. Verified that late prediction errors ($d \ge 0$) are penalized exponentially more severely than early errors ($d < 0$). |
-| **2.2** | Baseline models: Random Forest and XGBoost on FD001 with simple features | **Done (full data)** | Both models trained on 84 tabular window statistics across 80 training engines. RF Test RMSE: 16.45, XGBoost Test RMSE: 16.53. |
-| **2.3** | LSTM model on FD001; training loop, early stopping | **Done (full data)** | PyTorch 2-layer stacked LSTM trained with early stopping on 20 validation engines. Test RMSE: **13.73** cycles, NASA Score: **402.7**. Achieved the best prognostic performance across all models. |
+| **2.2** | Baseline models: Random Forest and XGBoost on FD001 with simple features | **Done (full data)** | Both models trained on 84 tabular window statistics across 80 training engines (13,818 sequences). Full training completed: Random Forest Test RMSE: 16.45, XGBoost Test RMSE: 16.53. |
+| **2.3** | LSTM model on FD001; training loop, early stopping | **Done (full data)** | PyTorch 2-layer stacked LSTM trained with early stopping on 20 validation engines (3,913 sequences). Test RMSE: **13.73** cycles, NASA Score: **402.7**. Achieved the best prognostic performance across all models. |
 | **2.4** | 1D-CNN model on FD001; compare with LSTM | **Done (full data)** | PyTorch 3-stage 1D-CNN trained in 23.1s (~1.6x faster than LSTM at 37.7s). Test RMSE: 16.33, NASA Score: 684.9. The stacked LSTM achieved superior prognostic accuracy on both RMSE and NASA score. |
-| **2.5** | Plots: predicted vs. true RUL per test engine; Report 2 and LinkedIn post | **Done** | High-resolution plots created: `predictions_vs_true.png`, `error_distributions.png`, `loss_curves.png`, and `nasa_asymmetric_curve.png`. LinkedIn post and graphics ready in `results/`. |
+| **2.5** | Plots: predicted vs. true RUL per test engine; Report 2 and LinkedIn post | **Done** | All benchmark plots generated in `results/`: predictions vs. true, error distributions, loss curves, and NASA scoring curve. LinkedIn post and share graphics prepared. |
+
+**Overall status vs. plan:** On track. Classical baselines (Random Forest, XGBoost) and initial deep temporal models (Stacked LSTM, 1D-CNN) are operational, trained with leak-free cross-validation, and evaluated against the NASA asymmetric metric. The Stacked LSTM is established as the leading baseline architecture entering Sprint 3.
 
 ---
 
 ## 2. Benchmark Results on Full C-MAPSS FD001 Test Set
-All four models were trained on 80 training engines (with 20 engines held out for validation and early stopping) and evaluated on the 100 separate test engines using ground-truth remaining useful life from `RUL_FD001.txt`:
+All four models were trained on 80 training engines (13,818 sequences), with 20 engines held out for validation (3,913 sequences) and early stopping, and evaluated on the 100 separate test engines using ground-truth remaining useful life from `RUL_FD001.txt`:
 
 | Model Architecture | Input Feature Representation | Test RMSE (Cycles) | NASA Score ($S$) | Late Error % | MAE (Cycles) |
 | :--- | :--- | :---: | :---: | :---: | :---: |
@@ -28,6 +30,8 @@ All four models were trained on 80 training engines (with 20 engines held out fo
 | **XGBoost** | 84 Window Statistics | 16.53 | 541.6 | 56.0% | 12.2 |
 | **PyTorch Stacked LSTM** | 3D Sequence $(30, 14)$ | **13.73** *(Best)* | **402.7** *(Best)* | **47.0%** | **10.21** |
 | **PyTorch 1D-CNN** | 3D Sequence $(14, 30)$ | 16.33 | 684.9 | 57.0% | 12.06 |
+
+**Comparative Analysis:** The Stacked LSTM achieved the top performance overall, beating Random Forest by 36.1% (NASA score: 402.7 vs. 630.6) and beating the best tabular baseline, XGBoost, by 25.6% (402.7 vs. 541.6), while reducing Test RMSE to 13.73 cycles. The 1D-CNN trained 1.63x faster (23.10s vs 37.69s) but had a higher proportion of late predictions (57.0%), which led to a higher NASA penalty score (684.9).
 
 ---
 

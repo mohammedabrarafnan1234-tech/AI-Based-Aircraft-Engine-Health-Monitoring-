@@ -4,18 +4,31 @@ PDF Report Generator for Capstone Milestones using ReportLab.
 Produces Progress_Report_1.pdf and Progress_Report_2.pdf matching the exact
 academic format, tables, figures, and branding of the IU Data Science Capstone.
 
-Fully addresses all review feedback and plan items:
-1. Report 2: Corrects 1D-CNN vs LSTM comparison (LSTM outperformed CNN on RMSE and NASA score;
-   accurately reports 1D-CNN training time of 23.1s vs 37.7s, ~1.6x faster).
-2. Report 2: Removes placeholder finding (289.2) and documents real LSTM best score (402.7).
-3. Report 2: Corrects training engine split sentence (trained on 80 engines, 20 for validation).
-4. Report 1: Adds clickable LinkedIn profile links for all three thought leaders.
-5. Report 1: Adds clickable links for all 5 companies, platforms, and Lufthansa job posting.
-6. Report 1: Softens Rolls-Royce description (aero engines instead of Trent turbofans).
-7. Report 1: Softens overall status from 'Fully on schedule' to realistic progress.
-8. Plan Item 1.1: Includes full 12-paper literature review table with notes and references.
-9. Plan Item 1.2: Documents FD001-FD004 full dataset status and provides clickable GitHub repo link.
-10. Plan Item 1.3: Embeds sensor correlation matrix heatmap alongside sensor degradation trends.
+Fully addresses all academic integrity requirements, verified citations, and specific URLs:
+1. Report 1 Citations:
+   - Paper 2 (Heimes): Softened to 'used a piece-wise linear RUL target'.
+   - Paper 5 (Camci): Correct title 'System maintenance scheduling with prognostics information using genetic algorithm', IEEE Trans. Reliability, 58(3), 539-552.
+   - Paper 7 (Babu): Full title 'Deep convolutional neural network based regression approach for estimation of remaining useful life', DASFAA 2016.
+   - Paper 8 (Wu 2018): Full title 'Remaining useful life estimation of engineered systems using vanilla LSTM neural networks', Neurocomputing, 275, 167-179.
+   - Paper 9 (Ellefsen): Reliability Engineering & System Safety, 183, 240-251 (unsupervised pre-training + genetic algorithm).
+   - Paper 10 (Al-Dulaimi): 'A multimodal and hybrid deep neural network model for Remaining Useful Life estimation', Computers in Industry, 108, 186-196 (2019).
+   - Paper 12: Replaced with Wu et al. (2020), 'Data-driven remaining useful life prediction via multiple sensor signals and deep long short-term memory neural network', ISA Transactions, 97, 241-250.
+2. Report 1 Links:
+   - AVIATAR: lufthansa-technik.com/en/aviatar-vastly-expands-its-aircraft-health-monitoring-portfolio-for-boeing-737s-78d7ef6c3a5954cc
+   - Lufthansa Job: innovation-runway.lufthansagroup.com/en/career/job-offers/offer/referent-data-analytics-science-m-w-divers-127854.html
+   - MTU ETM: aeroreport.de/en/innovation/better-maintenance-planning-with-engine-trend-monitoring
+   - MTU & Teledyne: businesswire.com/news/home/20251028303766/en/mtu-maintenance-and-teledyne-controls-partner-to-deliver-enhanced-engine-health-monitoring/
+   - Rolls-Royce: rolls-royce.com/media/press-releases/2018/16-07-2018-rr-intelligentengine-vision-makes-rapid-progress.aspx
+   - Airbus: airbus.com/en/newsroom/press-releases/2021-10-frontier-airlines-selects-skywise-health-monitoring-as-future-fleet
+   - Collins: aviationbusinessnews.com/mro/latest-news-mro/turning-data-into-intelligence-predictive-maintenance
+   - Kai Goebel: ltu.se/en/staff/k/kai-goebel
+   - Abhinav Saxena: alphaxiv.org/@abhinav-saxena
+3. Refinements:
+   - Report 1: 'constant or near-constant (near-zero variance)' instead of 'variance = 0'.
+   - Reports 1 & 2: Clarified 17,731 windows count (13,818 train / 3,913 val across 80/20 split; 100 test).
+   - Report 2: Specified baseline comparisons (36.1% vs RF, 25.6% vs XGBoost).
+   - Report 2: Accurately describes Figure 1 without non-existent 'identity line y = x'.
+   - Report 2: Fixed PDF rendering (no raw LaTeX or black square for y_pred), and added 'Overall status vs. plan'.
 """
 
 import os
@@ -196,7 +209,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("1.1", st["cell"]),
             Paragraph("Literature review: RUL prediction, LSTM/CNN, cost-based maintenance (10–15 papers)", st["cell"]),
             Paragraph("Done (core set of 12)", st["cell"]),
-            Paragraph("Core set of 12 foundational papers reviewed with structured notes and reference citations on Page 2 (Saxena 2008, Heimes 2008, Zheng 2017, Li 2018, Camci 2009, Jardine 2006, Babu 2016, Wu 2018, Ellefsen 2019, Al-Dulaimi 2019, Gal 2016, Wang 2020). Target was 10–15; 3 additional papers will be added for the final thesis report.", st["cell"]),
+            Paragraph("Core set of 12 verified papers reviewed with structured notes and reference citations on Page 2 (Saxena 2008, Heimes 2008, Zheng 2017, Li 2018, Camci 2009, Jardine 2006, Babu 2016, Wu 2018, Ellefsen 2019, Al-Dulaimi 2019, Gal 2016, Wu 2020). Target was 10–15; 3 additional papers will be added for the final thesis report.", st["cell"]),
         ],
         [
             Paragraph("1.2", st["cell"]),
@@ -208,19 +221,19 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("1.3", st["cell"]),
             Paragraph("Exploratory data analysis: sensor trends, correlations, constant sensors", st["cell"]),
             Paragraph("Done (full data)", st["cell"]),
-            Paragraph("Full EDA completed across 100 training engines (20,631 flight cycles, lifetimes 128–362 cycles, mean 206.31, std 46.34). Flagged 7 constant sensors (s1, s5, s6, s10, s16, s18, s19) with variance = 0 and pruned them, retaining 14 active degradation channels. Full sensor trends and Pearson correlation matrix generated in <code>results/charts/</code>.", st["cell"]),
+            Paragraph("Full EDA completed across 100 training engines (20,631 flight cycles, lifetimes 128–362 cycles, mean 206.31, std 46.34). Flagged 7 constant or near-constant sensors (s1, s5, s6, s10, s16, s18, s19) with near-zero variance and pruned them, retaining 14 active degradation channels. Full sensor trends and Pearson correlation matrix generated in <code>results/charts/</code>.", st["cell"]),
         ],
         [
             Paragraph("1.4", st["cell"]),
             Paragraph("Preprocessing: drop uninformative sensors, normalisation, split by engine", st["cell"]),
             Paragraph("Done (full data)", st["cell"]),
-            Paragraph("7 constant sensors and 3 invariant operating settings dropped (14 channels kept). Min-Max normalisation fitted strictly on 80 training engines (zero data leakage to the 20 validation or 100 test engines). Passed validation audit.", st["cell"]),
+            Paragraph("7 constant or near-constant sensors and 3 invariant operating settings dropped (14 channels kept). Min-Max normalisation fitted strictly on 80 training engines (zero data leakage to the 20 validation or 100 test engines). Passed validation audit.", st["cell"]),
         ],
         [
             Paragraph("1.5", st["cell"]),
             Paragraph("RUL labelling (piece-wise linear, cap about 125) and sliding windows (30 cycles)", st["cell"]),
             Paragraph("Done (full data)", st["cell"]),
-            Paragraph("Piecewise-linear RUL capped at 125 cycles; 30-cycle sliding windows generated: 17,731 training windows of shape (30, 14), 100 test windows of shape (30, 14), and 84 tabular window statistics (17,731 x 84).", st["cell"]),
+            Paragraph("Piecewise-linear RUL capped at 125 cycles; 30-cycle sliding windows generated: 17,731 sequences total across all 100 training engines (13,818 train windows on 80 engines, 3,913 validation windows on 20 engines), 100 test sequences, and 84 tabular window statistics.", st["cell"]),
         ],
         [
             Paragraph("1.6", st["cell"]),
@@ -259,9 +272,9 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
         "1. <b>Raw Telemetry Ingestion:</b> Reads 21 physical sensors and 3 operational settings across run-to-failure cycles.<br/>"
         "2. <b>Constant Feature Pruning:</b> Removes 7 flatline sensors and 3 invariant settings, isolating 14 active wear channels.<br/>"
         "3. <b>Engine-Wise Split:</b> 80% train (80 engines) / 20% validation (20 engines) by engine unit ID (never by row) to prevent data leakage.<br/>"
-        "4. <b>Train-Only Normalisation:</b> Min-Max scaling parameters are learned strictly from the 80 training engines and transformed onto validation and test sets.<br/>"
-        "5. <b>Piecewise-Linear RUL Capping:</b> Labels early cycles at $RUL_{max} = 125$ to model the physical inception of wear.<br/>"
-        "6. <b>Sliding Window Sequence Extraction:</b> 30-cycle temporal windows with stride 1 generate 17,731 training samples of shape (30, 14) for deep models, and 84 summary statistics for tree baselines.",
+        "4. <b>Train-Only Normalisation:</b> Min-Max scaling parameters are learned strictly from the 80 training engines (13,818 windows) and transformed onto validation (3,913 windows) and test sets.<br/>"
+        "5. <b>Piecewise-Linear RUL Capping:</b> Labels early cycles at RUL_max = 125 cycles to model the physical inception of wear.<br/>"
+        "6. <b>Sliding Window Sequence Extraction:</b> 30-cycle temporal windows with stride 1 generate 17,731 total sequences (13,818 train / 3,913 val) of shape (30, 14) for deep models, and 84 summary statistics for tree baselines.",
         st["body"],
     ))
 
@@ -269,70 +282,70 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     story.append(PageBreak())
 
     story.append(Paragraph("3. Comprehensive Literature Review (12 Foundational Papers with Notes & References)", st["h1"]))
-    story.append(Paragraph("A structured review of 12 foundational papers covering RUL prognostics, deep temporal architectures, and cost-based decision making:", st["body"]))
+    story.append(Paragraph("A structured review of 12 verified foundational papers covering RUL prognostics, deep temporal architectures, and cost-based decision making:", st["body"]))
     story.append(Spacer(1, 4))
 
     lit_data = [
         [Paragraph("#", st["cell_bold"]), Paragraph("Citation & Title", st["cell_bold"]), Paragraph("Research Note & Key Contribution to Capstone", st["cell_bold"])],
         [
             Paragraph("1", st["cell"]),
-            Paragraph("<b>Saxena et al. (2008)</b><br/>Damage propagation modeling for aircraft engine run-to-failure simulation. <i>IEEE PHM</i>.", st["cell"]),
+            Paragraph("<b>Saxena et al. (2008)</b><br/>Damage propagation modeling for aircraft engine run-to-failure simulation. <i>IEEE PHM</i>, pp. 1–9.", st["cell"]),
             Paragraph("Introduced the C-MAPSS turbofan benchmark; defined standardized degradation physics and the official asymmetric scoring metric used in this thesis.", st["cell"]),
         ],
         [
             Paragraph("2", st["cell"]),
-            Paragraph("<b>Heimes (2008)</b><br/>Recurrent neural networks for remaining useful life estimation. <i>IEEE PHM</i>.", st["cell"]),
-            Paragraph("First to propose piecewise-linear RUL target capping (RUL_max = 125–130) to reflect negligible wear in early operating cycles.", st["cell"]),
+            Paragraph("<b>Heimes (2008)</b><br/>Recurrent neural networks for remaining useful life estimation. <i>IEEE PHM</i>, pp. 1–6.", st["cell"]),
+            Paragraph("Used a piece-wise linear RUL target (RUL_max = 125–130) to reflect negligible wear in early operating cycles.", st["cell"]),
         ],
         [
             Paragraph("3", st["cell"]),
-            Paragraph("<b>Zheng et al. (2017)</b><br/>Long short-term memory network for remaining useful life estimation. <i>IEEE ICPHM</i>.", st["cell"]),
-            Paragraph("Demonstrated that stacked LSTMs outperform static feedforward networks by preserving temporal degradation memory across cycles.", st["cell"]),
+            Paragraph("<b>Zheng et al. (2017)</b><br/>Long short-term memory network for remaining useful life estimation. <i>IEEE ICPHM</i>, pp. 88–95.", st["cell"]),
+            Paragraph("Demonstrated that multi-layer stacked LSTMs preserve temporal degradation memory across operational cycles, outperforming feedforward networks.", st["cell"]),
         ],
         [
             Paragraph("4", st["cell"]),
-            Paragraph("<b>Li, Ding & Sun (2018)</b><br/>Remaining useful life estimation in prognostics using deep CNNs. <i>RESS</i>, 172.", st["cell"]),
-            Paragraph("Established 1D-CNNs for sensor prognostics, demonstrating hierarchical feature extraction and superior training parallelization over RNNs.", st["cell"]),
+            Paragraph("<b>Li, Ding & Sun (2018)</b><br/>Remaining useful life estimation in prognostics using deep convolution neural networks. <i>Reliability Engineering & System Safety</i>, 172, 1–11.", st["cell"]),
+            Paragraph("Established 1D-CNNs for sensor prognostics, demonstrating hierarchical feature extraction and superior training parallelization over recurrent nets.", st["cell"]),
         ],
         [
             Paragraph("5", st["cell"]),
-            Paragraph("<b>Camci (2009)</b><br/>System-level prognostics for maintenance scheduling with alternative assets. <i>IEEE Trans. Reliability</i>, 58(3).", st["cell"]),
-            Paragraph("Formulated cost-centric maintenance optimization, showing that RUL point predictions must be coupled to explicit failure vs. replacement costs.", st["cell"]),
+            Paragraph("<b>Camci (2009)</b><br/>System maintenance scheduling with prognostics information using genetic algorithm. <i>IEEE Transactions on Reliability</i>, 58(3), 539–552.", st["cell"]),
+            Paragraph("Used prognostics information to schedule maintenance with a genetic algorithm, balancing operational costs against failure risks.", st["cell"]),
         ],
         [
             Paragraph("6", st["cell"]),
-            Paragraph("<b>Jardine, Lin & Banjevic (2006)</b><br/>A review on machinery diagnostics and prognostics. <i>MSSP</i>, 20(7).", st["cell"]),
-            Paragraph("Foundational survey contrasting condition-based maintenance with rigid scheduled and reactive policies in industrial turbomachinery.", st["cell"]),
+            Paragraph("<b>Jardine, Lin & Banjevic (2006)</b><br/>A review on machinery diagnostics and prognostics implementing condition-based maintenance. <i>MSSP</i>, 20(7), 1483–1510.", st["cell"]),
+            Paragraph("Foundational review contrasting condition-based maintenance (CBM) with rigid scheduled and reactive policies in rotating machinery.", st["cell"]),
         ],
         [
             Paragraph("7", st["cell"]),
-            Paragraph("<b>Babu, Zhao & Li (2016)</b><br/>Deep CNN-based approach for remaining useful life estimation. <i>DASFAA</i>.", st["cell"]),
+            Paragraph("<b>Babu, Zhao & Li (2016)</b><br/>Deep convolutional neural network based regression approach for estimation of remaining useful life. <i>DASFAA 2016</i>, pp. 214–228.", st["cell"]),
             Paragraph("Early benchmark showing 2D/1D convolutions across multi-channel sensor arrays outperform shallow regression methods.", st["cell"]),
         ],
         [
             Paragraph("8", st["cell"]),
-            Paragraph("<b>Wu et al. (2018)</b><br/>Remaining useful life estimation using vanilla LSTM neural networks. <i>Neurocomputing</i>, 275.", st["cell"]),
+            Paragraph("<b>Wu, Yuan, Dong, Lin & Liu (2018)</b><br/>Remaining useful life estimation of engineered systems using vanilla LSTM neural networks. <i>Neurocomputing</i>, 275, 167–179.", st["cell"]),
             Paragraph("Hyperparameter sensitivity study of vanilla LSTMs across all four C-MAPSS subsets (FD001–FD004).", st["cell"]),
         ],
         [
             Paragraph("9", st["cell"]),
-            Paragraph("<b>Ellefsen et al. (2019)</b><br/>RUL predictions for turbofan degradation using semi-supervised deep architecture. <i>IEEE Access</i>, 7.", st["cell"]),
-            Paragraph("Paired unsupervised convolutional autoencoders with bidirectional LSTMs to handle noisy multi-sensor signals.", st["cell"]),
+            Paragraph("<b>Ellefsen, Bjørlykhaug, Æsøy, Ushakov & Zhang (2019)</b><br/>Remaining useful life predictions for turbofan engine degradation using semi-supervised deep architecture. <i>Reliability Engineering & System Safety</i>, 183, 240–251.", st["cell"]),
+            Paragraph("Paired unsupervised pre-training with a genetic algorithm for hyperparameter tuning to handle noisy multi-sensor signals.", st["cell"]),
         ],
         [
             Paragraph("10", st["cell"]),
-            Paragraph("<b>Al-Dulaimi et al. (2019)</b><br/>A multimodal deep ensemble framework for remaining useful life estimation. <i>IEEE TIM</i>, 68(5).", st["cell"]),
-            Paragraph("Developed hybrid parallel CNN-LSTM ensembles capable of multi-condition adaptation across varying flight envelopes.", st["cell"]),
+            Paragraph("<b>Al-Dulaimi, Zabihi, Asif & Mohammadi (2019)</b><br/>A multimodal and hybrid deep neural network model for Remaining Useful Life estimation. <i>Computers in Industry</i>, 108, 186–196.", st["cell"]),
+            Paragraph("Developed a multimodal and hybrid deep neural network model combining convolutional and recurrent pathways for RUL estimation.", st["cell"]),
         ],
         [
             Paragraph("11", st["cell"]),
-            Paragraph("<b>Gal & Ghahramani (2016)</b><br/>Dropout as a Bayesian approximation: Representing model uncertainty. <i>ICML</i>.", st["cell"]),
+            Paragraph("<b>Gal & Ghahramani (2016)</b><br/>Dropout as a Bayesian approximation: Representing model uncertainty in deep learning. <i>ICML</i>, pp. 1050–1059.", st["cell"]),
             Paragraph("Theoretical foundation for Monte Carlo Dropout to extract predictive uncertainty intervals without training full Bayesian nets.", st["cell"]),
         ],
         [
             Paragraph("12", st["cell"]),
-            Paragraph("<b>Wang, Long & Wang (2020)</b><br/>Multi-sensor information fusion for RUL prediction using deep temporal networks. <i>IEEE TII</i>.", st["cell"]),
-            Paragraph("Analyzed inter-sensor correlations and cross-channel degradation signatures for feature selection in turbofans.", st["cell"]),
+            Paragraph("<b>Wu, Hu, Cheng, Zhu, Shao & Wang (2020)</b><br/>Data-driven remaining useful life prediction via multiple sensor signals and deep long short-term memory neural network. <i>ISA Transactions</i>, 97, 241–250.", st["cell"]),
+            Paragraph("Fuses multiple sensor signals with deep LSTM networks to capture multivariate degradation trends across turbofan components.", st["cell"]),
         ],
     ]
 
@@ -354,7 +367,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     story.append(Paragraph("4. Exploratory Data Analysis & Sensor Correlation Matrix", st["h1"]))
     story.append(Paragraph(
         "Analysis of all 100 training engines (20,631 records) revealed two critical degradation patterns: "
-        "(1) Seven sensors (s1, s5, s6, s10, s16, s18, s19) and all 3 operating settings have variance = 0 in single-regime sea-level operation (FD001) and were permanently pruned; "
+        "(1) Seven sensors (s1, s5, s6, s10, s16, s18, s19) and all 3 operating settings are constant or near-constant (near-zero variance) in single-regime sea-level operation (FD001) and were permanently pruned; "
         "(2) The remaining 14 sensors show strong degradation signatures. Exhaust temperatures (s2, s3, s4) and spool speeds (s9, s14) exhibit strong positive correlations with cycle wear, "
         "while pressures and coolant bleed flows (s7, s12, s20, s21) exhibit strong negative correlations.",
         st["body"],
@@ -383,19 +396,18 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     # ================= PAGE 4 =================
     story.append(PageBreak())
 
-    story.append(Paragraph("5. Five Companies That Need This Use Case (with Verified Links & Postings)", st["h1"]))
+    story.append(Paragraph("5. Five Companies That Need This Use Case (with Verified Specific Links)", st["h1"]))
     story.append(Paragraph("Operating or delivering engine health monitoring and predictive maintenance platforms to eliminate Aircraft on Ground (AOG) operational risks:", st["body"]))
     story.append(Spacer(1, 4))
 
     companies_data = [
-        [Paragraph("Company", st["cell_bold"]), Paragraph("Why they need this use case", st["cell_bold"]), Paragraph("Verified Links & Job Postings", st["cell_bold"])],
+        [Paragraph("Company", st["cell_bold"]), Paragraph("Why they need this use case", st["cell_bold"]), Paragraph("Verified Specific Links & Postings", st["cell_bold"])],
         [
             Paragraph("<b>Lufthansa Technik</b><br/>(Hamburg, Germany)", st["cell"]),
             Paragraph("AVIATAR platform with Predictive Health Analytics; Engine Services team leverages predictive RUL algorithms to prevent Aircraft on Ground (AOG) events.", st["cell"]),
             Paragraph(
-                "• <link href=\"https://www.lufthansa-technik.com/en/aviatar\" color=\"#2E86AB\"><u>AVIATAR Platform (Health Analytics)</u></link><br/>"
-                "• <link href=\"https://www.lufthansa-technik.com/en/career\" color=\"#2E86AB\"><u>Job: Data Analytics & Science (Engine Services)</u></link><br/>"
-                "• <link href=\"https://www.lufthansa-technik.com/en/career\" color=\"#2E86AB\"><u>Internship: Digital Innovation (Engine Services)</u></link>",
+                "• <link href=\"https://www.lufthansa-technik.com/en/aviatar-vastly-expands-its-aircraft-health-monitoring-portfolio-for-boeing-737s-78d7ef6c3a5954cc\" color=\"#2E86AB\"><u>AVIATAR Health Monitoring Expansion</u></link><br/>"
+                "• <link href=\"https://innovation-runway.lufthansagroup.com/en/career/job-offers/offer/referent-data-analytics-science-m-w-divers-127854.html\" color=\"#2E86AB\"><u>Job: Referent Data Analytics & Science (Engine Services)</u></link>",
                 st["cell"],
             ),
         ],
@@ -403,10 +415,8 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("<b>MTU Maintenance</b><br/>(Munich, Germany)", st["cell"]),
             Paragraph("Engine Trend Monitoring (ETM) for early compressor diagnostics and shop visit planning; partnership with Teledyne for flight data integration.", st["cell"]),
             Paragraph(
-                "• <link href=\"https://www.mtu.de/maintenance/engine-maintenance/engine-trend-monitoring/\" color=\"#2E86AB\"><u>Engine Trend Monitoring (ETM) Article</u></link><br/>"
-                "• <link href=\"https://www.mtu.de/maintenance/\" color=\"#2E86AB\"><u>ETM Commercial Product Sheet</u></link><br/>"
-                "• <link href=\"https://www.mtu.de/news-media/press-releases/\" color=\"#2E86AB\"><u>Teledyne Flight Data Partnership</u></link><br/>"
-                "• <link href=\"https://www.linkedin.com/company/mtu-maintenance\" color=\"#2E86AB\"><u>LinkedIn: MTU Maintenance</u></link>",
+                "• <link href=\"https://aeroreport.de/en/innovation/better-maintenance-planning-with-engine-trend-monitoring\" color=\"#2E86AB\"><u>AeroReport: Engine Trend Monitoring Article</u></link><br/>"
+                "• <link href=\"https://www.businesswire.com/news/home/20251028303766/en/mtu-maintenance-and-teledyne-controls-partner-to-deliver-enhanced-engine-health-monitoring/\" color=\"#2E86AB\"><u>MTU & Teledyne Partnership (BusinessWire)</u></link>",
                 st["cell"],
             ),
         ],
@@ -414,20 +424,19 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("<b>Rolls-Royce</b><br/>(Germany / UK)", st["cell"]),
             Paragraph("Engine Health Monitoring and IntelligentEngine; data science team uses machine learning to estimate remaining useful life for large commercial aero engines.", st["cell"]),
             Paragraph(
-                "• <link href=\"https://www.rolls-royce.com/innovation/intelligentengine.aspx\" color=\"#2E86AB\"><u>IntelligentEngine & EHM Services</u></link><br/>"
-                "• <link href=\"https://careers.rolls-royce.com/\" color=\"#2E86AB\"><u>Careers: Data Scientist – RUL for Aero Engines</u></link>",
+                "• <link href=\"https://www.rolls-royce.com/media/press-releases/2018/16-07-2018-rr-intelligentengine-vision-makes-rapid-progress.aspx\" color=\"#2E86AB\"><u>IntelligentEngine Vision Progress Press Release</u></link>",
                 st["cell"],
             ),
         ],
         [
             Paragraph("<b>Airbus</b><br/>(Hamburg / Toulouse)", st["cell"]),
             Paragraph("Skywise Health Monitoring and Predictive Maintenance platform to cut unscheduled maintenance and AOG operational risk for airlines.", st["cell"]),
-            Paragraph("• <link href=\"https://aircraft.airbus.com/en/services/enhance/skywise\" color=\"#2E86AB\"><u>Airbus Skywise Health Monitoring</u></link>", st["cell"]),
+            Paragraph("• <link href=\"https://www.airbus.com/en/newsroom/press-releases/2021-10-frontier-airlines-selects-skywise-health-monitoring-as-future-fleet\" color=\"#2E86AB\"><u>Airbus Skywise Health Monitoring (Frontier Airlines)</u></link>", st["cell"]),
         ],
         [
             Paragraph("<b>Collins Aerospace</b><br/>(Global)", st["cell"]),
             Paragraph("Ascentia predictive maintenance platform with health monitoring and predictive analytics for commercial airline fleets.", st["cell"]),
-            Paragraph("• <link href=\"https://www.aviationbusinessnews.com/\" color=\"#2E86AB\"><u>Ascentia Fleet Analytics (Market Report)</u></link>", st["cell"]),
+            Paragraph("• <link href=\"https://www.aviationbusinessnews.com/mro/latest-news-mro/turning-data-into-intelligence-predictive-maintenance\" color=\"#2E86AB\"><u>Turning Data into Intelligence: Predictive Maintenance</u></link>", st["cell"]),
         ],
     ]
     t_comp = Table(companies_data, colWidths=[1.5 * inch, 2.7 * inch, 2.8 * inch])
@@ -455,7 +464,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
     story.append(Spacer(1, 4))
 
     leaders_data = [
-        [Paragraph("Person & Affiliation", st["cell_bold"]), Paragraph("Why they fit your field (verified)", st["cell_bold"]), Paragraph("LinkedIn Profile Link", st["cell_bold"]), Paragraph("Writing Style & Takeaway", st["cell_bold"])],
+        [Paragraph("Person & Affiliation", st["cell_bold"]), Paragraph("Why they fit your field (verified)", st["cell_bold"]), Paragraph("Verified Profile Links", st["cell_bold"]), Paragraph("Writing Style & Takeaway", st["cell_bold"])],
         [
             Paragraph("<b>Prof. Olga Fink</b><br/>EPFL (IMOS Lab)", st["cell"]),
             Paragraph("Leads Intelligent Maintenance and Operations Systems: RUL prediction, physics-informed deep learning, PHM Society Fellow (2023). Studied at Hamburg Univ. of Tech.", st["cell"]),
@@ -471,7 +480,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("Founded NASA's Prognostics Center of Excellence, which released the C-MAPSS dataset; 400+ PHM publications; PHM Society co-founder.", st["cell"]),
             Paragraph(
                 "<link href=\"https://www.linkedin.com/in/kaigoebel/\" color=\"#2E86AB\"><u>linkedin.com/in/kaigoebel/</u></link><br/>"
-                "<link href=\"https://www.ltu.se/\" color=\"#2E86AB\"><u>Luleå Univ. Profile</u></link>",
+                "<link href=\"https://www.ltu.se/en/staff/k/kai-goebel\" color=\"#2E86AB\"><u>LTU Faculty Profile</u></link>",
                 st["cell"],
             ),
             Paragraph("Keeps posts concise: one line of context plus a link to an article or interview and focused domain hashtags (#maintenance #PHM #prognostics).", st["cell"]),
@@ -481,7 +490,7 @@ def build_pdf_report_1(output_pdf_path="reports/Progress_Report_1.pdf", results_
             Paragraph("First author of the C-MAPSS damage propagation paper (2008); PHM Society Fellow; works on ML-based prognostics and digital twins.", st["cell"]),
             Paragraph(
                 "<link href=\"https://www.linkedin.com/in/abhinavsaxena/\" color=\"#2E86AB\"><u>linkedin.com/in/abhinavsaxena/</u></link><br/>"
-                "<link href=\"https://www.geaerospace.com/\" color=\"#2E86AB\"><u>GE Aerospace Summary</u></link>",
+                "<link href=\"https://alphaxiv.org/@abhinav-saxena\" color=\"#2E86AB\"><u>alphaXiv Profile</u></link>",
                 st["cell"],
             ),
             Paragraph("Writes in a plain, community-minded tone: shares conference programmes and panel talks with simple hashtags so others can follow along.", st["cell"]),
@@ -564,13 +573,13 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
             Paragraph("2.2", st["cell"]),
             Paragraph("Baseline models: Random Forest and XGBoost on FD001 with simple features", st["cell"]),
             Paragraph("Done (full data)", st["cell"]),
-            Paragraph(f"84 window statistics engineered across 80 training engines. Full training and evaluation completed: Random Forest Test RMSE: {rf.get('rmse')}, XGBoost Test RMSE: {xgb.get('rmse')}.", st["cell"]),
+            Paragraph(f"84 window statistics engineered across 80 training engines (13,818 sequences). Full training and evaluation completed: Random Forest Test RMSE: {rf.get('rmse')}, XGBoost Test RMSE: {xgb.get('rmse')}.", st["cell"]),
         ],
         [
             Paragraph("2.3", st["cell"]),
             Paragraph("LSTM model on FD001; training loop, early stopping", st["cell"]),
             Paragraph("Done (full data)", st["cell"]),
-            Paragraph(f"PyTorch 2-layer stacked LSTM trained with early stopping on 20 validation engines. Test RMSE: <b>{lstm.get('rmse')}</b> cycles, NASA Score: <b>{lstm.get('nasa_score')}</b>. Achieved the best prognostic performance across all models.", st["cell"]),
+            Paragraph(f"PyTorch 2-layer stacked LSTM trained with early stopping on 20 validation engines (3,913 sequences). Test RMSE: <b>{lstm.get('rmse')}</b> cycles, NASA Score: <b>{lstm.get('nasa_score')}</b>. Achieved the best prognostic performance across all models.", st["cell"]),
         ],
         [
             Paragraph("2.4", st["cell"]),
@@ -597,12 +606,18 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
     ]))
     story.append(t1)
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 4))
+
+    story.append(Paragraph(
+        "<b>Overall status vs. plan:</b> On track. Classical baselines (Random Forest, XGBoost) and initial deep temporal models (Stacked LSTM, 1D-CNN) are operational, trained with leak-free cross-validation, and evaluated against the NASA asymmetric metric. The Stacked LSTM is established as the leading baseline architecture entering Sprint 3.",
+        st["body"],
+    ))
+    story.append(Spacer(1, 5))
 
     # Section 2: Benchmark Results
     story.append(Paragraph("2. Benchmark Results on Full C-MAPSS FD001 Test Set", st["h1"]))
     story.append(Paragraph(
-        "All four models were trained on 80 training engines (with 20 engines held out for validation and early stopping) "
+        "All four models were trained on 80 training engines (13,818 sequences), with 20 engines held out for validation (3,913 sequences) and early stopping, "
         "and evaluated on the 100 separate test engines using ground-truth remaining useful life from <code>RUL_FD001.txt</code>:",
         st["body"],
     ))
@@ -626,11 +641,12 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
         ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
     ]))
     story.append(t2)
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 4))
 
     story.append(Paragraph(
-        f"<b>Comparative Analysis:</b> The Stacked LSTM achieved the top performance overall, beating tabular baselines by 16.5% on RMSE (13.73 vs 16.45) "
-        f"and reducing the NASA penalty score by 36.1% (402.7 vs 630.6). The 1D-CNN trained 1.63x faster (23.10s vs 37.69s) but exhibited higher late prediction error.",
+        f"<b>Comparative Analysis:</b> The Stacked LSTM achieved the top performance overall, beating Random Forest by 36.1% (NASA score: 402.7 vs. 630.6) "
+        f"and beating the best tabular baseline, XGBoost, by 25.6% (402.7 vs. 541.6), while reducing Test RMSE to 13.73 cycles. "
+        f"The 1D-CNN trained 1.63x faster (23.10s vs 37.69s) but had a higher proportion of late predictions (57.0%), which led to a higher NASA penalty score (684.9).",
         st["body"],
     ))
 
@@ -639,8 +655,8 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
 
     story.append(Paragraph("3. Empirical Predictions vs. Ground-Truth Across All 100 Test Engines", st["h1"]))
     story.append(Paragraph(
-        "Figure 1 displays predicted RUL versus ground-truth remaining life from <code>RUL_FD001.txt</code> across all 100 test units. "
-        "The Stacked LSTM demonstrates tighter variance around the identity line ($y = x$), with markedly fewer catastrophic overshoots in the critical region ($RUL < 30$ cycles).",
+        "Figure 1 plots predicted remaining useful life against ground-truth failure cycles from <code>RUL_FD001.txt</code> for each of the 100 test engines. "
+        "The Stacked LSTM demonstrates superior tracking of the true degradation trajectory, maintaining tight residual bounds across both early-life and late-life engine states.",
         st["body"],
     ))
     story.append(Spacer(1, 4))
@@ -675,7 +691,7 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
         "whereas underestimating RUL merely triggers a premature depot inspection. The NASA asymmetric scoring function formalizes this critical disparity:<br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>s<sub>i</sub> = exp(-d<sub>i</sub> / 13) - 1</b> &nbsp;&nbsp; if d<sub>i</sub> &lt; 0 (Early prediction: Safe)<br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>s<sub>i</sub> = exp(d<sub>i</sub> / 10) - 1</b> &nbsp;&nbsp; if d<sub>i</sub> &ge; 0 (Late prediction: Dangerous)<br/>"
-        "where d<sub>i</sub> = y&#770;<sub>i</sub> - y<sub>i</sub> is the prediction residual in cycles. "
+        "where d<sub>i</sub> = y_pred<sub>i</sub> - y_true<sub>i</sub> is the prediction error in cycles. "
         "An error of +10 cycles incurs a penalty of 1.72, whereas an error of -10 cycles incurs only 1.16 (1.48x higher). "
         "For an error of &plusmn;30 cycles, the asymmetry widens to 19.09 vs. 9.05 (2.11x higher penalty).",
         st["body"],
@@ -706,7 +722,7 @@ def build_pdf_report_2(output_pdf_path="reports/Progress_Report_2.pdf", results_
     story.append(Paragraph(
         "• <b>Hyperparameter Tuning:</b> Implement Bayesian optimization via Optuna to tune LSTM hidden dimensions, CNN kernel widths, dropout rates, and learning rates.<br/>"
         "• <b>Multi-Condition Extension:</b> Generalize preprocessing to C-MAPSS sub-datasets FD002 (6 operating regimes) and FD004 (multi-fault modes), applying operating condition clustering.<br/>"
-        "• <b>Uncertainty Quantification:</b> Implement Monte Carlo Dropout (Gal &amp; Ghahramani, 2016) to generate predictive variance (&sigma;<sub>i</sub><sup>2</sup>) for each engine, providing calibrated risk bounds for the Sprint 4 cost decision engine.<br/>"
+        "• <b>Uncertainty Quantification:</b> Implement Monte Carlo Dropout (Gal &amp; Ghahramani, 2016) to generate predictive variance for each engine, providing calibrated risk bounds for the Sprint 4 cost decision engine.<br/>"
         "• <b>Progress Report 3:</b> Document comprehensive hyperparameter ablation, multi-regime transferability, and uncertainty-calibrated RUL curves.",
         st["body"],
     ))

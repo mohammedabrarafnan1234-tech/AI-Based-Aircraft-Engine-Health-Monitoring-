@@ -101,17 +101,17 @@ Because $C_{fail} \gg C_{pm}$, an optimal decision layer must penalize overestim
 | Author & Year | Core Focus | Architecture / Method | Key Finding / Limitation |
 | :--- | :--- | :--- | :--- |
 | **Saxena et al. (2008)** | C-MAPSS dataset introduction | Physics-of-failure simulation | Established the international standard benchmark for RUL prognostics and the NASA asymmetric score. |
-| **Heimes (2008)** | First PHM challenge winner | Recurrent Neural Networks | Introduced piecewise-linear RUL capping ($RUL_{max} = 125-130$) to account for early non-wear regime. |
+| **Heimes (2008)** | Recurrent Neural Networks | Piecewise-linear RUL target | Used a piece-wise linear RUL target ($RUL_{max} = 125-130$) to reflect negligible wear in early operating cycles. |
 | **Zheng et al. (2017)** | Temporal memory | Stacked 2-Layer LSTM | Proved temporal gates outperform static feedforward networks; preserved sequential degradation memory. |
 | **Li, Ding, & Sun (2018)** | Spatial-temporal extraction | Deep 1D-CNN | Showed 1D convolutions match or exceed LSTM accuracy with vastly superior computational parallelization. |
-| **Camci (2009)** | Cost-centric maintenance | Dynamic programming | Highlighted that regression accuracy does not equate to minimum maintenance cost; decision layer required. |
+| **Camci (2009)** | Maintenance scheduling | Genetic algorithm | Used prognostics information to schedule maintenance with a genetic algorithm, balancing operational costs against failure risks. |
 | **Jardine et al. (2006)** | CBM vs. scheduled maintenance | Diagnostic & prognostic survey | Established foundational cost models for condition-based maintenance across industrial rotating machinery. |
-| **Babu, Zhao & Li (2016)** | Deep CNN for RUL | 2D/1D Temporal Convolutions | Demonstrated automated feature learning across multi-channel sensor arrays without manual feature crafting. |
+| **Babu, Zhao & Li (2016)** | Deep CNN regression | 2D/1D Temporal Convolutions | Demonstrated automated feature learning across multi-channel sensor arrays without manual feature crafting. |
 | **Wu et al. (2018)** | Vanilla LSTM prognostics | Recurrent Neural Networks | Comprehensive sensitivity analysis of recurrent architectures across all four C-MAPSS sub-datasets (FD001–FD004). |
-| **Ellefsen et al. (2019)** | Semi-supervised prognostics | Convolutional AE + BiLSTM | Paired unsupervised representation learning with temporal recurrence to handle sensor noise. |
-| **Al-Dulaimi et al. (2019)** | Multimodal deep ensembles | Hybrid Parallel CNN-LSTM | Developed multi-stream architectures capable of adapting across varied flight envelopes. |
+| **Ellefsen et al. (2019)** | Semi-supervised prognostics | Unsupervised pre-training + GA | Paired unsupervised pre-training with a genetic algorithm for hyperparameter tuning to handle noisy multi-sensor signals. |
+| **Al-Dulaimi et al. (2019)** | Multimodal hybrid DNN | Parallel CNN-LSTM | Developed a multimodal and hybrid deep neural network model combining convolutional and recurrent pathways for RUL estimation. |
 | **Gal & Ghahramani (2016)** | Bayesian deep learning | Monte Carlo Dropout | Theoretical proof that dropout at test time approximates Gaussian processes, yielding uncertainty $\sigma^2$. |
-| **Wang, Long & Wang (2020)** | Multi-sensor information fusion | Deep temporal networks | Mapped cross-sensor collinearity and degradation signatures to optimize prognostic feature selection. |
+| **Wu et al. (2020)** | Multi-sensor information fusion | Deep LSTM networks | Fuses multiple sensor signals with deep LSTM networks to capture multivariate degradation trends across turbofan components. |
 
 ---
 
@@ -383,8 +383,9 @@ The completed preprocessing pipeline (`src/preprocessing/preprocess.py`) perform
   3. Strict Leak-Free Normalisation: Min-Max scaling parameters are learned solely from 
      training engine units and applied consistently to test engine units.
   4. Sliding Window Extraction: Sequences of window length W = 30 cycles and stride s = 1 
-     are generated, yielding 17,731 training samples of shape (30, 14) for deep models, 
-     and aggregated tabular feature vectors for tree-based baselines.
+     are generated, yielding 17,731 sliding window sequences total across the 100 training engines 
+     (13,818 for training across 80 engines, and 3,913 held out for validation across 20 engines; 
+     100 test sequences), and aggregated tabular feature vectors for tree-based baselines.
   5. Test Set Formatting: Final observed 30-cycle sequences are extracted per test engine, 
      with left zero-padding applied for engines with short observation histories.
 
