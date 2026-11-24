@@ -1,36 +1,36 @@
 {
   "subset": "FD001",
-  "champion_model": "PyTorch Stacked LSTM",
+  "champion_model": "PyTorch Stacked LSTM (Monte Carlo Dropout)",
   "regime_breakdown": {
     "critical_0_30": {
       "regime": "Critical (0-30 Cycles)",
       "count": 25,
-      "rmse": 4.0,
-      "mae": 2.95,
-      "nasa_score": 9.1,
-      "late_pct": 64.0,
-      "early_pct": 36.0,
-      "mean_error": 1.2000000476837158
+      "rmse": 5.25,
+      "mae": 3.73,
+      "nasa_score": 13.2,
+      "late_pct": 56.0,
+      "early_pct": 44.0,
+      "mean_error": 1.59
     },
     "mid_30_60": {
       "regime": "Mid-Life (30-60 Cycles)",
       "count": 14,
-      "rmse": 10.94,
-      "mae": 8.15,
-      "nasa_score": 25.5,
-      "late_pct": 50.0,
-      "early_pct": 50.0,
-      "mean_error": 2.299999952316284
+      "rmse": 12.92,
+      "mae": 10.2,
+      "nasa_score": 38.2,
+      "late_pct": 78.6,
+      "early_pct": 21.4,
+      "mean_error": 6.21
     },
     "early_60_125": {
       "regime": "Early-Life (60-125 Cycles)",
       "count": 61,
-      "rmse": 16.86,
-      "mae": 13.08,
-      "nasa_score": 364.9,
+      "rmse": 16.48,
+      "mae": 12.69,
+      "nasa_score": 368.2,
       "late_pct": 52.5,
       "early_pct": 47.5,
-      "mean_error": 2.4800000190734863
+      "mean_error": 3.81
     }
   },
   "worst_10_engines": [
@@ -38,157 +38,187 @@
       "rank": 1,
       "engine_id": 79,
       "true_rul": 63.0,
-      "pred_rul": 105.5,
-      "error": 42.5,
+      "pred_rul": 107.3,
+      "error": 44.3,
       "direction": "LATE (Unsafe)",
-      "sigma": 9.29
+      "sigma": 9.29,
+      "zone": "early-life"
     },
     {
       "rank": 2,
-      "engine_id": 67,
-      "true_rul": 77.0,
-      "pred_rul": 119.30000305175781,
-      "error": 42.29999923706055,
+      "engine_id": 27,
+      "true_rul": 66.0,
+      "pred_rul": 109.1,
+      "error": 43.1,
       "direction": "LATE (Unsafe)",
-      "sigma": 8.99
+      "sigma": 8.3,
+      "zone": "early-life"
     },
     {
       "rank": 3,
-      "engine_id": 93,
-      "true_rul": 85.0,
-      "pred_rul": 44.400001525878906,
-      "error": -40.599998474121094,
-      "direction": "EARLY (Safe)",
-      "sigma": 5.69
+      "engine_id": 67,
+      "true_rul": 77.0,
+      "pred_rul": 116.4,
+      "error": 39.4,
+      "direction": "LATE (Unsafe)",
+      "sigma": 8.99,
+      "zone": "early-life"
     },
     {
       "rank": 4,
-      "engine_id": 27,
-      "true_rul": 66.0,
-      "pred_rul": 106.30000305175781,
-      "error": 40.29999923706055,
-      "direction": "LATE (Unsafe)",
-      "sigma": 8.3
+      "engine_id": 93,
+      "true_rul": 85.0,
+      "pred_rul": 47.9,
+      "error": -37.1,
+      "direction": "EARLY (Safe)",
+      "sigma": 5.69,
+      "zone": "early-life"
     },
     {
       "rank": 5,
       "engine_id": 45,
       "true_rul": 114.0,
-      "pred_rul": 78.4000015258789,
-      "error": -35.599998474121094,
+      "pred_rul": 81.3,
+      "error": -32.7,
       "direction": "EARLY (Safe)",
-      "sigma": 8.62
+      "sigma": 8.62,
+      "zone": "early-life"
     },
     {
       "rank": 6,
       "engine_id": 86,
       "true_rul": 89.0,
-      "pred_rul": 117.4000015258789,
-      "error": 28.399999618530273,
+      "pred_rul": 116.4,
+      "error": 27.4,
       "direction": "LATE (Unsafe)",
-      "sigma": 7.74
+      "sigma": 7.74,
+      "zone": "early-life"
     },
     {
       "rank": 7,
-      "engine_id": 15,
-      "true_rul": 83.0,
-      "pred_rul": 109.0,
-      "error": 26.0,
+      "engine_id": 21,
+      "true_rul": 57.0,
+      "pred_rul": 83.8,
+      "error": 26.8,
       "direction": "LATE (Unsafe)",
-      "sigma": 10.26
+      "sigma": 8.14,
+      "zone": "mid"
     },
     {
       "rank": 8,
-      "engine_id": 2,
-      "true_rul": 98.0,
-      "pred_rul": 123.80000305175781,
-      "error": 25.799999237060547,
+      "engine_id": 15,
+      "true_rul": 83.0,
+      "pred_rul": 107.5,
+      "error": 24.5,
       "direction": "LATE (Unsafe)",
-      "sigma": 7.55
+      "sigma": 10.26,
+      "zone": "early-life"
     },
     {
       "rank": 9,
-      "engine_id": 21,
-      "true_rul": 57.0,
-      "pred_rul": 80.9000015258789,
-      "error": 23.899999618530273,
+      "engine_id": 2,
+      "true_rul": 98.0,
+      "pred_rul": 119.8,
+      "error": 21.8,
       "direction": "LATE (Unsafe)",
-      "sigma": 8.14
+      "sigma": 7.55,
+      "zone": "early-life"
     },
     {
       "rank": 10,
-      "engine_id": 54,
-      "true_rul": 97.0,
-      "pred_rul": 117.5,
-      "error": 20.5,
+      "engine_id": 16,
+      "true_rul": 84.0,
+      "pred_rul": 105.2,
+      "error": 21.2,
       "direction": "LATE (Unsafe)",
-      "sigma": 8.07
+      "sigma": 8.51,
+      "zone": "early-life"
     }
   ],
+  "top_10_mean_sigma": 8.31,
+  "fleet_mean_sigma": 7.04,
+  "top_10_early_life_count": 9,
   "conservative_shifting": [
     {
       "alpha": 0.0,
-      "nasa_score": 399.5,
-      "late_pct": 55.0,
-      "early_pct": 45.0,
-      "rmse": 13.93,
-      "mae": 9.86
+      "nasa_score": 419.6,
+      "reduction_pct": 0.0,
+      "late_pct": 57.0,
+      "early_pct": 43.0,
+      "rmse": 14.0,
+      "mae": 10.1
     },
     {
       "alpha": 0.2,
-      "nasa_score": 357.4,
-      "late_pct": 46.0,
-      "early_pct": 54.0,
-      "rmse": 13.74,
-      "mae": 9.81
+      "nasa_score": 368.2,
+      "reduction_pct": -12.2,
+      "late_pct": 54.0,
+      "early_pct": 46.0,
+      "rmse": 13.64,
+      "mae": 9.9
     },
     {
       "alpha": 0.4,
-      "nasa_score": 327.9,
-      "late_pct": 42.0,
-      "early_pct": 58.0,
-      "rmse": 13.71,
-      "mae": 9.97
+      "nasa_score": 329.4,
+      "reduction_pct": -21.5,
+      "late_pct": 49.0,
+      "early_pct": 51.0,
+      "rmse": 13.44,
+      "mae": 9.82
     },
     {
       "alpha": 0.6,
-      "nasa_score": 308.7,
-      "late_pct": 40.0,
-      "early_pct": 60.0,
-      "rmse": 13.84,
-      "mae": 10.2
+      "nasa_score": 301.8,
+      "reduction_pct": -28.1,
+      "late_pct": 44.0,
+      "early_pct": 56.0,
+      "rmse": 13.39,
+      "mae": 9.85
     },
     {
       "alpha": 0.8,
-      "nasa_score": 298.8,
-      "late_pct": 36.0,
-      "early_pct": 64.0,
-      "rmse": 14.12,
-      "mae": 10.47
+      "nasa_score": 284.4,
+      "reduction_pct": -32.2,
+      "late_pct": 40.0,
+      "early_pct": 60.0,
+      "rmse": 13.51,
+      "mae": 10.02
     },
     {
       "alpha": 1.0,
-      "nasa_score": 298.1,
+      "nasa_score": 276.8,
+      "reduction_pct": -34.0,
       "late_pct": 32.0,
       "early_pct": 68.0,
-      "rmse": 14.55,
-      "mae": 10.86
+      "rmse": 13.79,
+      "mae": 10.37
     },
     {
       "alpha": 1.2,
-      "nasa_score": 306.4,
-      "late_pct": 26.0,
-      "early_pct": 74.0,
-      "rmse": 15.11,
-      "mae": 11.4
+      "nasa_score": 278.0,
+      "reduction_pct": -33.7,
+      "late_pct": 29.0,
+      "early_pct": 71.0,
+      "rmse": 14.21,
+      "mae": 10.86
     },
     {
       "alpha": 1.5,
-      "nasa_score": 334.8,
-      "late_pct": 20.0,
-      "early_pct": 80.0,
-      "rmse": 16.16,
-      "mae": 12.42
+      "nasa_score": 293.9,
+      "reduction_pct": -30.0,
+      "late_pct": 28.0,
+      "early_pct": 72.0,
+      "rmse": 15.1,
+      "mae": 11.64
+    },
+    {
+      "alpha": 2.0,
+      "nasa_score": 359.8,
+      "reduction_pct": -14.3,
+      "late_pct": 19.0,
+      "early_pct": 81.0,
+      "rmse": 17.12,
+      "mae": 13.35
     }
   ]
 }
