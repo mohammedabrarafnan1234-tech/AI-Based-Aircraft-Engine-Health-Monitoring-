@@ -1,0 +1,834 @@
+{
+  "lstm": {
+    "model": "Stacked LSTM",
+    "subset": "FD001",
+    "n_trials": 30,
+    "best_val_rmse": 11.306,
+    "best_params": {
+      "window_size": 40,
+      "hidden_dim1": 32,
+      "hidden_dim2": 64,
+      "dropout": 0.2,
+      "learning_rate": 0.0058720422721734505
+    },
+    "final_test_metrics": {
+      "rmse": 13.515,
+      "mae": 9.569,
+      "nasa_score": 378.15,
+      "late_pct": 60.0,
+      "early_pct": 40.0,
+      "max_early": -34.689998626708984,
+      "max_late": 47.5
+    },
+    "trials": [
+      {
+        "number": 0,
+        "value": 89.489,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 32,
+          "hidden_dim2": 32,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.00010994335574766199
+        }
+      },
+      {
+        "number": 1,
+        "value": 80.899,
+        "params": {
+          "window_size": 20,
+          "hidden_dim1": 128,
+          "hidden_dim2": 16,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.00019010245319870352
+        }
+      },
+      {
+        "number": 2,
+        "value": 85.375,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00013492834268013249
+        }
+      },
+      {
+        "number": 3,
+        "value": 12.827,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.1,
+          "learning_rate": 0.006586289317583112
+        }
+      },
+      {
+        "number": 4,
+        "value": 13.755,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 64,
+          "hidden_dim2": 16,
+          "dropout": 0.4,
+          "learning_rate": 0.0015696396388661144
+        }
+      },
+      {
+        "number": 5,
+        "value": 15.984,
+        "params": {
+          "window_size": 20,
+          "hidden_dim1": 128,
+          "hidden_dim2": 32,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.001217284708112243
+        }
+      },
+      {
+        "number": 6,
+        "value": 13.145,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 32,
+          "hidden_dim2": 32,
+          "dropout": 0.35,
+          "learning_rate": 0.0034877126245459306
+        }
+      },
+      {
+        "number": 7,
+        "value": 14.186,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.35,
+          "learning_rate": 0.0018841476921545091
+        }
+      },
+      {
+        "number": 8,
+        "value": 91.913,
+        "params": {
+          "window_size": 20,
+          "hidden_dim1": 64,
+          "hidden_dim2": 16,
+          "dropout": 0.2,
+          "learning_rate": 0.0001124186209579306
+        }
+      },
+      {
+        "number": 9,
+        "value": 84.83,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00014254757044027455
+        }
+      },
+      {
+        "number": 10,
+        "value": 12.444,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00795342404922945
+        }
+      },
+      {
+        "number": 11,
+        "value": 13.513,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.1,
+          "learning_rate": 0.0028211528365742595
+        }
+      },
+      {
+        "number": 12,
+        "value": 12.687,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.008058745836094205
+        }
+      },
+      {
+        "number": 13,
+        "value": 14.774,
+        "params": {
+          "window_size": 30,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.00918848781233855
+        }
+      },
+      {
+        "number": 14,
+        "value": 11.417,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.006360985960505532
+        }
+      },
+      {
+        "number": 15,
+        "value": 11.962,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.25,
+          "learning_rate": 0.003339268764125921
+        }
+      },
+      {
+        "number": 16,
+        "value": 12.09,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.003295752323835468
+        }
+      },
+      {
+        "number": 17,
+        "value": 11.306,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.0058720422721734505
+        }
+      },
+      {
+        "number": 18,
+        "value": 14.414,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.1,
+          "learning_rate": 0.0009727521749437662
+        }
+      },
+      {
+        "number": 19,
+        "value": 13.036,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00129754619689339
+        }
+      },
+      {
+        "number": 20,
+        "value": 16.164,
+        "params": {
+          "window_size": 20,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.0021054570803190034
+        }
+      },
+      {
+        "number": 21,
+        "value": 15.262,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 128,
+          "hidden_dim2": 64,
+          "dropout": 0.25,
+          "learning_rate": 0.0009674372677404657
+        }
+      },
+      {
+        "number": 22,
+        "value": 12.473,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.2,
+          "learning_rate": 0.005402335996510363
+        }
+      },
+      {
+        "number": 23,
+        "value": 11.756,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.1,
+          "learning_rate": 0.006437730035303918
+        }
+      },
+      {
+        "number": 24,
+        "value": 11.86,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 32,
+          "dropout": 0.1,
+          "learning_rate": 0.007878183988432581
+        }
+      },
+      {
+        "number": 25,
+        "value": 15.535,
+        "params": {
+          "window_size": 20,
+          "hidden_dim1": 32,
+          "hidden_dim2": 64,
+          "dropout": 0.25,
+          "learning_rate": 0.009514622994432025
+        }
+      },
+      {
+        "number": 26,
+        "value": 12.475,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 32,
+          "hidden_dim2": 16,
+          "dropout": 0.1,
+          "learning_rate": 0.0031050363596143568
+        }
+      },
+      {
+        "number": 27,
+        "value": 11.667,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 64,
+          "hidden_dim2": 64,
+          "dropout": 0.1,
+          "learning_rate": 0.005933335270650905
+        }
+      },
+      {
+        "number": 28,
+        "value": 11.702,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 64,
+          "hidden_dim2": 64,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.0031762312221385266
+        }
+      },
+      {
+        "number": 29,
+        "value": 12.55,
+        "params": {
+          "window_size": 40,
+          "hidden_dim1": 64,
+          "hidden_dim2": 64,
+          "dropout": 0.35,
+          "learning_rate": 0.006697340560781949
+        }
+      }
+    ]
+  },
+  "cnn": {
+    "model": "1D-CNN",
+    "subset": "FD001",
+    "n_trials": 30,
+    "best_val_rmse": 14.343,
+    "best_params": {
+      "window_size": 40,
+      "filters1": 32,
+      "filters2": 64,
+      "filters3": 64,
+      "kernel_size1": 7,
+      "kernel_size2": 3,
+      "kernel_size3": 5,
+      "dropout": 0.25,
+      "learning_rate": 0.0006948762963025313
+    },
+    "final_test_metrics": {
+      "rmse": 15.493,
+      "mae": 11.873,
+      "nasa_score": 468.16,
+      "late_pct": 69.0,
+      "early_pct": 31.0,
+      "max_early": -36.869998931884766,
+      "max_late": 45.81999969482422
+    },
+    "trials": [
+      {
+        "number": 0,
+        "value": 18.015,
+        "params": {
+          "window_size": 30,
+          "filters1": 16,
+          "filters2": 64,
+          "filters3": 128,
+          "kernel_size1": 3,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.2,
+          "learning_rate": 0.0016738085788752138
+        }
+      },
+      {
+        "number": 1,
+        "value": 17.98,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 64,
+          "filters3": 32,
+          "kernel_size1": 5,
+          "kernel_size2": 3,
+          "kernel_size3": 3,
+          "dropout": 0.1,
+          "learning_rate": 0.0009780337016659412
+        }
+      },
+      {
+        "number": 2,
+        "value": 16.542,
+        "params": {
+          "window_size": 30,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 5,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.004544383960336018
+        }
+      },
+      {
+        "number": 3,
+        "value": 27.977,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 32,
+          "filters3": 64,
+          "kernel_size1": 5,
+          "kernel_size2": 3,
+          "kernel_size3": 3,
+          "dropout": 0.2,
+          "learning_rate": 0.00013400367243354819
+        }
+      },
+      {
+        "number": 4,
+        "value": 17.608,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 3,
+          "kernel_size2": 3,
+          "kernel_size3": 3,
+          "dropout": 0.25,
+          "learning_rate": 0.006533305220227739
+        }
+      },
+      {
+        "number": 5,
+        "value": 16.878,
+        "params": {
+          "window_size": 40,
+          "filters1": 64,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.0007148510793512986
+        }
+      },
+      {
+        "number": 6,
+        "value": 15.362,
+        "params": {
+          "window_size": 30,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.1,
+          "learning_rate": 0.0016562605893335955
+        }
+      },
+      {
+        "number": 7,
+        "value": 18.052,
+        "params": {
+          "window_size": 20,
+          "filters1": 16,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 3,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.2,
+          "learning_rate": 0.00023606794572813083
+        }
+      },
+      {
+        "number": 8,
+        "value": 14.744,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.25,
+          "learning_rate": 0.0011463075602214
+        }
+      },
+      {
+        "number": 9,
+        "value": 18.436,
+        "params": {
+          "window_size": 40,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 32,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.1,
+          "learning_rate": 0.00020970853331431146
+        }
+      },
+      {
+        "number": 10,
+        "value": 17.117,
+        "params": {
+          "window_size": 20,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.0018856770509864352
+        }
+      },
+      {
+        "number": 11,
+        "value": 15.481,
+        "params": {
+          "window_size": 30,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.35,
+          "learning_rate": 0.007566053138718526
+        }
+      },
+      {
+        "number": 12,
+        "value": 17.012,
+        "params": {
+          "window_size": 30,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.1,
+          "learning_rate": 0.0004365760181005422
+        }
+      },
+      {
+        "number": 13,
+        "value": 15.253,
+        "params": {
+          "window_size": 30,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.005769691386578775
+        }
+      },
+      {
+        "number": 14,
+        "value": 15.339,
+        "params": {
+          "window_size": 30,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.25,
+          "learning_rate": 0.003035044364626257
+        }
+      },
+      {
+        "number": 15,
+        "value": 15.41,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 5,
+          "kernel_size3": 5,
+          "dropout": 0.2,
+          "learning_rate": 0.0009257890277669286
+        }
+      },
+      {
+        "number": 16,
+        "value": 15.833,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 3,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.0003151111336167571
+        }
+      },
+      {
+        "number": 17,
+        "value": 15.847,
+        "params": {
+          "window_size": 40,
+          "filters1": 16,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.4,
+          "learning_rate": 0.0006895862807405324
+        }
+      },
+      {
+        "number": 18,
+        "value": 15.939,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 32,
+          "filters3": 32,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.35,
+          "learning_rate": 0.002476857280716417
+        }
+      },
+      {
+        "number": 19,
+        "value": 15.73,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 5,
+          "kernel_size3": 5,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.0002874625969681898
+        }
+      },
+      {
+        "number": 20,
+        "value": 16.506,
+        "params": {
+          "window_size": 20,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 7,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.1,
+          "learning_rate": 0.0026577343430315517
+        }
+      },
+      {
+        "number": 21,
+        "value": 16.747,
+        "params": {
+          "window_size": 40,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.2,
+          "learning_rate": 0.0026992758076435893
+        }
+      },
+      {
+        "number": 22,
+        "value": 16.862,
+        "params": {
+          "window_size": 30,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00955683400807417
+        }
+      },
+      {
+        "number": 23,
+        "value": 17.572,
+        "params": {
+          "window_size": 30,
+          "filters1": 64,
+          "filters2": 64,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 3,
+          "kernel_size3": 3,
+          "dropout": 0.25,
+          "learning_rate": 0.0022432067636585533
+        }
+      },
+      {
+        "number": 24,
+        "value": 16.834,
+        "params": {
+          "window_size": 30,
+          "filters1": 64,
+          "filters2": 128,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.0012213431458168848
+        }
+      },
+      {
+        "number": 25,
+        "value": 14.343,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.25,
+          "learning_rate": 0.0006948762963025313
+        }
+      },
+      {
+        "number": 26,
+        "value": 15.89,
+        "params": {
+          "window_size": 40,
+          "filters1": 64,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.25,
+          "learning_rate": 0.0004153636616939747
+        }
+      },
+      {
+        "number": 27,
+        "value": 18.303,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 64,
+          "filters3": 64,
+          "kernel_size1": 3,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.25,
+          "learning_rate": 0.0012070842284443012
+        }
+      },
+      {
+        "number": 28,
+        "value": 15.962,
+        "params": {
+          "window_size": 30,
+          "filters1": 32,
+          "filters2": 32,
+          "filters3": 128,
+          "kernel_size1": 5,
+          "kernel_size2": 5,
+          "kernel_size3": 3,
+          "dropout": 0.15000000000000002,
+          "learning_rate": 0.00419556579757316
+        }
+      },
+      {
+        "number": 29,
+        "value": 44.438,
+        "params": {
+          "window_size": 40,
+          "filters1": 32,
+          "filters2": 128,
+          "filters3": 64,
+          "kernel_size1": 7,
+          "kernel_size2": 3,
+          "kernel_size3": 5,
+          "dropout": 0.30000000000000004,
+          "learning_rate": 0.00010123029724397193
+        }
+      }
+    ]
+  }
+}

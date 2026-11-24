@@ -1,0 +1,194 @@
+{
+  "subset": "FD001",
+  "champion_model": "PyTorch Stacked LSTM",
+  "regime_breakdown": {
+    "critical_0_30": {
+      "regime": "Critical (0-30 Cycles)",
+      "count": 25,
+      "rmse": 4.0,
+      "mae": 2.95,
+      "nasa_score": 9.1,
+      "late_pct": 64.0,
+      "early_pct": 36.0,
+      "mean_error": 1.2000000476837158
+    },
+    "mid_30_60": {
+      "regime": "Mid-Life (30-60 Cycles)",
+      "count": 14,
+      "rmse": 10.94,
+      "mae": 8.15,
+      "nasa_score": 25.5,
+      "late_pct": 50.0,
+      "early_pct": 50.0,
+      "mean_error": 2.299999952316284
+    },
+    "early_60_125": {
+      "regime": "Early-Life (60-125 Cycles)",
+      "count": 61,
+      "rmse": 16.86,
+      "mae": 13.08,
+      "nasa_score": 364.9,
+      "late_pct": 52.5,
+      "early_pct": 47.5,
+      "mean_error": 2.4800000190734863
+    }
+  },
+  "worst_10_engines": [
+    {
+      "rank": 1,
+      "engine_id": 79,
+      "true_rul": 63.0,
+      "pred_rul": 105.5,
+      "error": 42.5,
+      "direction": "LATE (Unsafe)",
+      "sigma": 9.29
+    },
+    {
+      "rank": 2,
+      "engine_id": 67,
+      "true_rul": 77.0,
+      "pred_rul": 119.30000305175781,
+      "error": 42.29999923706055,
+      "direction": "LATE (Unsafe)",
+      "sigma": 8.99
+    },
+    {
+      "rank": 3,
+      "engine_id": 93,
+      "true_rul": 85.0,
+      "pred_rul": 44.400001525878906,
+      "error": -40.599998474121094,
+      "direction": "EARLY (Safe)",
+      "sigma": 5.69
+    },
+    {
+      "rank": 4,
+      "engine_id": 27,
+      "true_rul": 66.0,
+      "pred_rul": 106.30000305175781,
+      "error": 40.29999923706055,
+      "direction": "LATE (Unsafe)",
+      "sigma": 8.3
+    },
+    {
+      "rank": 5,
+      "engine_id": 45,
+      "true_rul": 114.0,
+      "pred_rul": 78.4000015258789,
+      "error": -35.599998474121094,
+      "direction": "EARLY (Safe)",
+      "sigma": 8.62
+    },
+    {
+      "rank": 6,
+      "engine_id": 86,
+      "true_rul": 89.0,
+      "pred_rul": 117.4000015258789,
+      "error": 28.399999618530273,
+      "direction": "LATE (Unsafe)",
+      "sigma": 7.74
+    },
+    {
+      "rank": 7,
+      "engine_id": 15,
+      "true_rul": 83.0,
+      "pred_rul": 109.0,
+      "error": 26.0,
+      "direction": "LATE (Unsafe)",
+      "sigma": 10.26
+    },
+    {
+      "rank": 8,
+      "engine_id": 2,
+      "true_rul": 98.0,
+      "pred_rul": 123.80000305175781,
+      "error": 25.799999237060547,
+      "direction": "LATE (Unsafe)",
+      "sigma": 7.55
+    },
+    {
+      "rank": 9,
+      "engine_id": 21,
+      "true_rul": 57.0,
+      "pred_rul": 80.9000015258789,
+      "error": 23.899999618530273,
+      "direction": "LATE (Unsafe)",
+      "sigma": 8.14
+    },
+    {
+      "rank": 10,
+      "engine_id": 54,
+      "true_rul": 97.0,
+      "pred_rul": 117.5,
+      "error": 20.5,
+      "direction": "LATE (Unsafe)",
+      "sigma": 8.07
+    }
+  ],
+  "conservative_shifting": [
+    {
+      "alpha": 0.0,
+      "nasa_score": 399.5,
+      "late_pct": 55.0,
+      "early_pct": 45.0,
+      "rmse": 13.93,
+      "mae": 9.86
+    },
+    {
+      "alpha": 0.2,
+      "nasa_score": 357.4,
+      "late_pct": 46.0,
+      "early_pct": 54.0,
+      "rmse": 13.74,
+      "mae": 9.81
+    },
+    {
+      "alpha": 0.4,
+      "nasa_score": 327.9,
+      "late_pct": 42.0,
+      "early_pct": 58.0,
+      "rmse": 13.71,
+      "mae": 9.97
+    },
+    {
+      "alpha": 0.6,
+      "nasa_score": 308.7,
+      "late_pct": 40.0,
+      "early_pct": 60.0,
+      "rmse": 13.84,
+      "mae": 10.2
+    },
+    {
+      "alpha": 0.8,
+      "nasa_score": 298.8,
+      "late_pct": 36.0,
+      "early_pct": 64.0,
+      "rmse": 14.12,
+      "mae": 10.47
+    },
+    {
+      "alpha": 1.0,
+      "nasa_score": 298.1,
+      "late_pct": 32.0,
+      "early_pct": 68.0,
+      "rmse": 14.55,
+      "mae": 10.86
+    },
+    {
+      "alpha": 1.2,
+      "nasa_score": 306.4,
+      "late_pct": 26.0,
+      "early_pct": 74.0,
+      "rmse": 15.11,
+      "mae": 11.4
+    },
+    {
+      "alpha": 1.5,
+      "nasa_score": 334.8,
+      "late_pct": 20.0,
+      "early_pct": 80.0,
+      "rmse": 16.16,
+      "mae": 12.42
+    }
+  ]
+}
