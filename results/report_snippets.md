@@ -1,5 +1,5 @@
 # Capstone Experiment Outputs & Report Snippets
-**Execution Timestamp:** 2026-11-21 14:15:35
+**Execution Timestamp:** 2026-11-24 23:18:28
 **Target Dataset:** C-MAPSS FD001 (Full 20,631 Train Rows, 100 Test Engines)
 
 ---
