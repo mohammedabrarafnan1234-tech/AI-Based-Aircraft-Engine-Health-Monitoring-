@@ -12,7 +12,9 @@
 
 Sprint 3 substantially advances this capstone project by transitioning from single-regime sea-level baselines (FD001) to the complete multi-operating regime flight envelopes and compound degradation modes of the NASA C-MAPSS dataset (FD001–FD004, comprising 265,963 sensor telemetry records). 
 
-To directly resolve the single-run evaluation limitation noted in Sprint 2 review feedback, all models were evaluated across **five fixed random seeds** (`[42, 123, 456, 789, 2026]`), reporting empirical **mean ± std** for RMSE, NASA Asymmetric Score ($S$), MAE, and Late Prediction Percentage. Hyperparameter optimization was conducted with **Optuna**, strictly monitoring validation engine performance to guarantee zero data leakage (winning configuration: window size 40, hidden units 32/64, learning rate 0.0059, achieving validation RMSE 11.31 cycles and test RMSE 13.52 cycles). Furthermore, this sprint implements **epistemic uncertainty quantification** using Monte Carlo Dropout (50 passes) and 5-seed Deep Ensembles: MC-dropout 90% intervals covered 63% of test engines (ensemble 39%), while predictive uncertainty standard deviation ($\sigma_i$) correlated positively with absolute error ($r = 0.379, p < 0.001$). Finally, a diagnostic error audit across operating lifetime regimes inspired a **conservative RUL shifting policy** ($\hat{y}_{shifted} = \hat{y} - \alpha \cdot \sigma$): at $\alpha = 1.0$, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at $\alpha = 2.0$, with RMSE increasing by +1.10 cycles at $\alpha = 1.5$ and +3.12 cycles at $\alpha = 2.0$), establishing the exact mathematical foundation for the upcoming Sprint 4 Cost-Aware Maintenance Decision Support Layer.
+To directly resolve the single-run evaluation limitation noted in Sprint 2 review feedback, all models were evaluated across **five fixed random seeds** (`[42, 123, 456, 789, 2026]`), reporting empirical **mean ± std** for RMSE, NASA Asymmetric Score ($S$), MAE, and Late Prediction Percentage. In multi-condition subsets (FD002 and FD004), the Stacked LSTM achieved test RMSE of 16.93 ± 0.58 and 19.97 ± 0.46 cycles, leading Random Forest by 0.76 and 0.60 cycles respectively—differences that lie within approximately one standard deviation of model runs. Hyperparameter optimization was conducted with **Optuna**, strictly monitoring validation engine performance to guarantee zero data leakage (winning configuration: window size 40, hidden units 32/64, learning rate 0.0059, achieving validation RMSE 11.31 cycles; a single evaluation on the test set yielded RMSE 13.52 cycles, with a 5-seed comparison planned for Sprint 4). 
+
+Furthermore, this sprint implements **epistemic uncertainty quantification** using Monte Carlo Dropout (50 passes) and 5-seed Deep Ensembles (evaluated on the baseline Stacked LSTM, Seed 42, Window 30): MC-dropout 90% intervals covered 63% of test engines (ensemble 39%), while predictive uncertainty standard deviation ($\sigma_i$) correlated positively with absolute error ($r = 0.379, p < 0.001$). Finally, a diagnostic error audit across operating lifetime regimes informed an exploratory **conservative RUL shifting sensitivity analysis** ($\hat{y}_{shifted} = \hat{y} - \alpha \cdot \sigma$): at $\alpha = 1.0$, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at $\alpha = 2.0$). Shifting up to $\alpha \approx 1.0$ initially acts as a directional bias correction on the baseline's 57% late predictions (improving RMSE from 14.00 down to 13.39 at $\alpha = 0.6$ and 13.79 at $\alpha = 1.0$), with genuine accuracy penalties beginning beyond $\alpha > 1.2$ (+1.10 cycles at $\alpha = 1.5$ and +3.12 cycles at $\alpha = 2.0$). This provides the empirical foundation for the upcoming Sprint 4 Cost-Aware Maintenance Decision Support Layer, where $\alpha^*$ will be formally calibrated on validation engine loss distributions.
 
 ---
 
@@ -22,10 +24,10 @@ Status of planned Sprint 3 tasks from the project charter:
 
 | ID | Planned Task (from Project Charter) | Status | Comments & Verified Technical Findings |
 | :--- | :--- | :---: | :--- |
-| **3.1** | Hyperparameter tuning with Optuna on validation engines | **Done** | Tree-structured Parzen Estimator (TPE) Bayesian search conducted strictly on validation engines (zero test set exposure). Optimal configurations identified: Stacked LSTM (window 40, hidden 32/64, dropout 0.20, lr 0.0059; Val RMSE 11.31, Test RMSE 13.52, NASA 378.1); 1D-CNN (window 40, filters 32/64/64, kernels 7/3/5, lr 0.0007; Val RMSE 14.34, Test RMSE 15.49, NASA 468.2). |
-| **3.2** | Multi-condition extension to FD002–FD004 (multi-regime & multi-fault) | **Done** | Per-subset sensor variance audit performed. 6-cluster KMeans operating regime normalization implemented for FD002 and FD004. Fixed window $W = 30$ used for multi-seed benchmark; left zero-padding implemented for short test sequences (< 30 cycles). 4 architectures benchmarked across all 4 subsets and 5 seeds. |
-| **3.3** | Uncertainty quantification (MC Dropout & Deep Ensemble) | **Done** | Implemented 50-pass Monte Carlo Dropout and 5-seed Deep Ensemble. MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); intervals are narrower than nominal, reflecting residual over-confidence. Predictive standard deviation ($\sigma$) correlates positively with absolute error ($r = 0.379, p < 0.001$). |
-| **3.4** | Diagnostic error analysis & conservative RUL shifting | **Done** | Decomposed prediction errors across Critical ($[0, 30]$ cycles), Mid-life ($(30, 60]$), and Early-life ($(60, 125]$) regimes. Audited top-10 worst engines (9 of 10 in early-life; mean $\sigma = 8.31$ vs fleet 7.04). Conservative shifting ($\hat{y} - \alpha \cdot \sigma$) reached minimum NASA score at $\alpha = 1.0$ (276.8, -34.0% penalty) and reduced late predictions from 57.0% down to 19.0% at $\alpha = 2.0$. |
+| **3.1** | Hyperparameter tuning with Optuna on validation engines | **Done** | Tree-structured Parzen Estimator (TPE) Bayesian search conducted strictly on validation engines (zero test set exposure). Optimal configurations identified: Stacked LSTM (window 40, hidden 32/64, dropout 0.20, lr 0.0059; Val RMSE 11.31; single test evaluation RMSE 13.52, NASA 378.1; 5-seed comparison follows in Sprint 4); 1D-CNN (window 40, filters 32/64/64, kernels 7/3/5, lr 0.0007; Val RMSE 14.34, Test RMSE 15.49, NASA 468.2). |
+| **3.2** | Multi-condition extension to FD002–FD004 (multi-regime & multi-fault) | **Done** | Per-subset sensor variance audit performed. 6-cluster KMeans operating regime normalization implemented for FD002 and FD004. Fixed window $W = 30$ used for multi-seed benchmark; left zero-padding implemented for short test sequences (< 30 cycles). 4 architectures benchmarked across all 4 subsets and 5 seeds. Multi-condition RMSE yielded 17–22 cycles; LSTM leads RF by 0.76 and 0.60 cycles on FD002 and FD004 (within ~1 std). |
+| **3.3** | Uncertainty quantification (MC Dropout & Deep Ensemble) | **Done** | Implemented 50-pass Monte Carlo Dropout and 5-seed Deep Ensemble on baseline Stacked LSTM (Seed 42, Window 30). MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); intervals are narrower than nominal, reflecting residual over-confidence. Predictive standard deviation ($\sigma$) correlates positively with absolute error ($r = 0.379, p < 0.001$). |
+| **3.4** | Diagnostic error analysis & conservative RUL shifting | **Done** | Decomposed prediction errors across Critical ($[0, 30]$ cycles, $n=25$), Mid-life ($(30, 60]$, $n=14$), and Early-life ($(60, 125]$, $n=61$ capped; $n=50$ plus 11 engines $>125$ raw) regimes. Audited top-10 worst engines (9 of 10 in early-life; mean $\sigma = 8.31$ vs fleet 7.04). Exploratory conservative shifting sensitivity analysis reached empirical NASA minimum at $\alpha = 1.0$ (276.8, -34.0% penalty) via bias correction; reduced late predictions from 57.0% down to 19.0% at $\alpha = 2.0$. Operational $\alpha^*$ to be calibrated on validation in Sprint 4. |
 | **3.5** | Sprint 3 documentation, PDF compilation & Sprint 4 roadmap | **Done** | Progress Report 3 generated in publication-quality PDF format via ReportLab. Champion model selected based on FD001 validation performance. Detailed architectural roadmap formulated for Sprint 4 cost-aware decision layer with illustrative cost assumptions. |
 
 **Overall Status vs. Plan:** Fully on schedule. All planned deliverables for Sprint 3 have been executed, verified, and documented with zero synthetic fallbacks and leak-free validation protocols.
@@ -71,7 +73,7 @@ To enable uniform temporal processing across fixed sliding window dimensions ($W
 $$X_{pad} = \begin{bmatrix} \mathbf{0}_{(W - L) \times C} \\ X_{obs} \end{bmatrix}$$
 where $L < W$ is the observed sequence length and $C$ is the number of active sensor channels. This aligns the latest observed flight cycle to the final temporal step of the sequence without distorting degradation memory.
 
-*(Note: While the multi-seed benchmark standardized on $W = 30$, subsequent Optuna tuning on FD001 identified $W = 40$ as optimal for single-subset modeling. If $W = 40$ were extended to FD002 and FD004, 18 engines in FD002 and 27 engines in FD004 would have $< 40$ cycles and require padding).*
+*(Note: While the multi-seed benchmark standardized on $W = 30$, subsequent Optuna tuning on FD001 identified $W = 40$ as optimal for single-subset modeling. If $W = 40$ were extended to FD002 and FD004, 12 engines in FD002 and 16 engines in FD004 would have $< 40$ cycles and require padding).*
 
 ---
 
@@ -108,9 +110,9 @@ where $L < W$ is the observed sequence length and $C$ is the number of active se
 | | 1D-CNN | 3D Sequence $(17, 30)$ | 21.68 ± 1.20 | 3462.4 ± 534.1 | 46.7 ± 5.3% | 124.4s |
 
 ### 3.3 Key Findings Across Datasets
-1. **RMSE Superiority of Recurrent Modeling:** Across all four C-MAPSS subsets, the PyTorch Stacked LSTM achieved the lowest test RMSE (14.26 cycles on FD001, 16.93 on FD002, 15.12 on FD003, and 19.97 on FD004), outperforming Random Forest, XGBoost, and 1D-CNN.
+1. **RMSE Comparison Across Architectures:** Across all four C-MAPSS subsets, the PyTorch Stacked LSTM achieved the lowest test RMSE (14.26 cycles on FD001, 16.93 on FD002, 15.12 on FD003, and 19.97 on FD004). However, on the multi-condition subsets FD002 and FD004, the LSTM leads Random Forest by modest margins of 0.76 cycles (16.93 ± 0.58 vs. 17.69 ± 0.10) and 0.60 cycles (19.97 ± 0.46 vs. 20.57 ± 0.16) respectively—differences that lie within approximately one standard deviation of model runs.
 2. **Asymmetric Score Trade-Off:** While the LSTM has the lowest RMSE on all four subsets, it exhibits a worse NASA score than Random Forest on FD002 (2911.2 vs 1498.2) and than the 1D-CNN on FD004 (9297.6 vs 3462.4). Because the NASA metric penalizes late predictions exponentially ($e^{d/10}-1$), a small number of late outlier predictions under complex multi-regime conditions substantially inflate the LSTM's total NASA penalty.
-3. **Multi-Regime Complexity:** Operating regime clustering successfully held RMSE within approximately **17–22 cycles** across all multi-condition subsets, avoiding the 28–32 cycle errors reported in unnormalized literature.
+3. **Multi-Regime Complexity:** Operating regime clustering yielded test RMSE within approximately **17–22 cycles** across the multi-condition subsets (FD002 and FD004), whereas single-condition subsets (FD001 and FD003) achieved test RMSE of 14–17 cycles, avoiding the 28–32 cycle errors reported in unnormalized literature.
 
 ---
 
@@ -136,6 +138,8 @@ A foundational academic requirement of this capstone is **zero data leakage from
 
 Convergence plots confirm that the TPE sampler rapidly settled on the $W = 40$, hidden dim $(32, 64)$, lr $0.0059$ region, improving validation RMSE from the baseline of 13.24 down to **11.31 cycles**.
 
+*(Note on Tuning vs. 5-Seed Benchmark: The tuned configuration was evaluated once on the test set (RMSE 13.52 cycles, NASA 378.1) to confirm performance gains; a full 5-seed comparison with mean ± std will follow in Sprint 4).*
+
 ---
 
 ## 5. Epistemic Uncertainty Quantification & Calibration (Task 3.3)
@@ -143,6 +147,7 @@ Convergence plots confirm that the TPE sampler rapidly settled on the $W = 40$, 
 In aviation operations, deterministic point estimates of RUL can be misleading. Predicting an RUL of 15 cycles with $\sigma = \pm 2$ cycles represents an actionable maintenance window, whereas the same prediction with $\sigma = \pm 18$ cycles is an unacceptable flight safety hazard.
 
 ### 5.1 Methodology
+*Model Attribution:* Epistemic uncertainty quantification and shifting analyses are evaluated on the baseline Stacked LSTM, Seed 42, Window 30 (test RMSE 14.00, NASA 419.6).
 1. **Monte Carlo Dropout (MCD):** Following Gal & Ghahramani (2016), dropout layers were kept active during inference ($p = 0.20$). For each test engine $i$, $M = 50$ stochastic forward passes were computed to calculate predictive mean $\mu_i$ and epistemic standard deviation $\sigma_{MCD, i}$.
 2. **5-Seed Deep Ensemble:** The five models trained across seeds `[42, 123, 456, 789, 2026]` were aggregated to compute ensemble mean $\bar{y}_i$ and ensemble standard deviation $\sigma_{Ens, i}$.
 
@@ -165,7 +170,12 @@ Both Monte Carlo Dropout (63.0% coverage) and Deep Ensembles (39.0% coverage) sh
 ## 6. Diagnostic Error Analysis & Conservative RUL Shifting (Task 3.4)
 
 ### 6.1 Error Decomposition by Engine Lifetime Regime
-To diagnose where model errors originate, test engines were categorized into three operational life regimes based on true RUL:
+To diagnose where model errors originate, the 100 test engines in FD001 were partitioned into three operational life regimes based on capped target RUL ($\min(y, 125)$):
+- **Critical Zone** ($[0, 30]$ cycles, $n=25$)
+- **Mid-Life Zone** ($(30, 60]$ cycles, $n=14$)
+- **Early-Life Zone** ($(60, 125]$ cycles, $n=61$).
+
+*(Note on Raw vs. Capped RUL: If partitioned by raw uncapped true RUL from `RUL_FD001.txt`, 11 engines have true RUL exceeding 125 cycles up to 145 cycles, yielding: $[0, 30]$ $n=25$, $(30, 60]$ $n=14$, $(60, 125]$ $n=50$, and $>125$ $n=11$. Under standard capped piecewise-linear evaluation ($RUL_{max} = 125$), the 11 engines $>125$ merge into the Early-Life zone, giving $50 + 11 = 61$ engines).*
 
 | Operating Regime | True RUL Range | Engine Count | Sub-Group RMSE | Sub-Group MAE | NASA Score ($S$) | Late Error % | Operational Severity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
@@ -208,15 +218,15 @@ where $\alpha \ge 0$ is a risk-aversion multiplier:
 | **0.4** | 329.4 | -21.5% | 49.0% | 51.0% | 13.44 | 9.82 |
 | **0.6** | 301.8 | -28.1% | 44.0% | 56.0% | 13.39 | 9.85 |
 | **0.8** | 284.4 | -32.2% | 40.0% | 60.0% | 13.51 | 10.02 |
-| **1.0 (Optimal NASA Score)** | **276.8** | **-34.0%** | **32.0%** | **68.0%** | **13.79** | **10.37** |
+| **1.0 (Sensitivity Minimum)** | **276.8** | **-34.0%** | **32.0%** | **68.0%** | **13.79** | **10.37** |
 | **1.2** | 278.0 | -33.7% | 29.0% | 71.0% | 14.21 | 10.86 |
-| **1.5** | 293.9 | -29.9% | 28.0% | 72.0% | 15.10 | 11.64 |
-| **2.0 (Max Conservatism)** | 359.8 | -14.2% | **19.0%** | **81.0%** | 17.12 | 13.35 |
+| **1.5** | 293.9 | -30.0% | 28.0% | 72.0% | 15.10 | 11.64 |
+| **2.0 (Max Conservatism)** | 359.8 | -14.3% | **19.0%** | **81.0%** | 17.12 | 13.35 |
 
-**Operational Takeaway:**
-- The NASA asymmetric score bottoms out near **$\alpha \approx 1.0$** at **$276.8$** (a **$34.0\%$ reduction** from baseline 419.6), while late predictions drop from $57.0\%$ to **$32.0\%$**, and RMSE slightly improves to $13.79\text{ cycles}$.
-- Beyond $\alpha = 1.0$, the NASA score rises again (reaching $293.9$ at $\alpha = 1.5$ and $359.8$ at $\alpha = 2.0$) due to accumulating early-prediction penalties ($e^{-d/13}-1$).
-- Shifting further to $\alpha = 2.0$ cuts late predictions down to **$19.0\%$**, but incurs an RMSE increase of **$+3.12\text{ cycles}$** ($14.00 \to 17.12$). This non-trivial trade-off directly motivates the formal cost-optimization framework of Sprint 4.
+**Zero Test Leakage Safeguard & Operational Interpretation:**
+- **Exploratory Sensitivity Analysis:** The parameter sweep across $\alpha \in [0.0, 2.0]$ in Table 6.3 represents an exploratory post-hoc sensitivity analysis to characterize the response surface of the NASA scoring function and late prediction rate under epistemic uncertainty shifting. To maintain strict zero test data leakage, $\alpha = 1.0$ is NOT selected as an operational decision parameter from test data; rather, the operational risk multiplier $\alpha^*$ will be formally calibrated on validation engine loss distributions in Sprint 4.
+- **Directional Bias Correction vs. Accuracy Penalty:** Crucially, shifting by $\alpha \cdot \sigma$ for $\alpha$ up to approximately 1.0 simultaneously reduces the NASA score and improves test RMSE (from 14.00 down to 13.39 at $\alpha = 0.6$ and 13.79 at $\alpha = 1.0$). This occurs because the baseline model exhibits a late prediction bias (erring late 57.0% of the time); conservative shifting initially acts as a directional bias correction. The genuine accuracy cost (RMSE degradation) begins only beyond $\alpha > 1.2$ (rising to 14.21 at $\alpha = 1.2$, 15.10 at $\alpha = 1.5$, and 17.12 at $\alpha = 2.0$).
+- **Safety Gain:** Shifting further to $\alpha = 2.0$ cuts late predictions from 57.0% down to **$19.0\%$**, at the cost of an RMSE increase of **$+3.12\text{ cycles}$** ($14.00 \to 17.12$). This empirical trade-off provides the exact mathematical justification for the formal financial optimization framework of Sprint 4.
 
 ---
 

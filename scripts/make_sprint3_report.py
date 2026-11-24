@@ -205,20 +205,24 @@ def generate_pdf_report(
     story.append(Paragraph("<b>Student:</b> Mohammed Abrar (Matriculation No. 97193111) &nbsp;|&nbsp; <b>Supervisor:</b> Dr. Humera Noor &nbsp;|&nbsp; <b>Date:</b> 23 November – 7 December 2026", s["meta"]))
     story.append(Paragraph("<b>GitHub:</b> <a href='https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-' color='#0D5C75'><u>https://github.com/mohammedabrarafnan1234-tech/AI-Based-Aircraft-Engine-Health-Monitoring-</u></a>", s["meta"]))
     story.append(Spacer(1, 5))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#1B365D"), spaceAfter=6))
+    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#1B365D"), spaceAfter=8))
+    story.append(Spacer(1, 3))
 
     # Executive Summary Box
     exec_summary_text = (
         "<b>Executive Summary:</b> Sprint 3 elevates the prognostic framework from single-regime sea-level baselines (FD001) "
         "to the complete multi-operating regime flight envelopes and compound failure modes of NASA C-MAPSS (FD001–FD004, 265,963 records). "
         "To eliminate single-run evaluation vulnerabilities identified in Sprint 2, all models were evaluated across <b>5 fixed random seeds</b> "
-        "(42, 123, 456, 789, 2026), reporting <b>mean ± std</b>. Hyperparameter optimization with Optuna was conducted strictly on "
-        "validation engines to guarantee zero test leakage (winning configuration: window 40, hidden units 32/64, lr 0.0059; Val RMSE 11.31, Test RMSE 13.52). "
-        "Epistemic uncertainty was quantified using Monte Carlo Dropout (50 passes) and 5-seed Deep Ensembles: "
+        "(42, 123, 456, 789, 2026), reporting <b>mean ± std</b>. In multi-condition subsets (FD002 and FD004), the Stacked LSTM leads "
+        "Random Forest by 0.76 and 0.60 cycles respectively—within approximately one standard deviation of model runs. "
+        "Hyperparameter optimization with Optuna was conducted strictly on validation engines (winning configuration: window 40, hidden units 32/64, lr 0.0059; "
+        "Val RMSE 11.31; single test evaluation RMSE 13.52, NASA 378.1; 5-seed comparison follows in Sprint 4). "
+        "Epistemic uncertainty was quantified using Monte Carlo Dropout (50 passes) and 5-seed Deep Ensembles on baseline Stacked LSTM (Seed 42, Window 30): "
         "MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); predictive uncertainty standard deviation (σ) correlated positively "
-        "with absolute error (r = 0.379, p &lt; 0.001). Finally, conservative uncertainty-guided RUL shifting was introduced: "
-        "at α = 1.0, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at α = 2.0, "
-        "with RMSE increasing by +1.10 cycles at α = 1.5 and +3.12 cycles at α = 2.0), providing the exact empirical foundation for Sprint 4's cost-aware decision layer."
+        "with absolute error (r = 0.379, p &lt; 0.001). Finally, an exploratory conservative RUL shifting sensitivity analysis was conducted: "
+        "at α = 1.0, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at α = 2.0). "
+        "Shifting up to α ≈ 1.0 acts initially as a directional bias correction on 57% late predictions (improving RMSE from 14.00 down to 13.39 at α = 0.6 and 13.79 at α = 1.0), "
+        "with real accuracy costs beginning beyond α &gt; 1.2 (+1.10 cycles at α = 1.5 and +3.12 cycles at α = 2.0). Operational α* will be calibrated on validation in Sprint 4."
     )
     story.append(Table([[Paragraph(exec_summary_text, s["callout"])]], colWidths=[504], style=[
         ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F0FDF4")),
@@ -235,25 +239,25 @@ def generate_pdf_report(
             Paragraph("<b>3.1</b>", s["table_cell_bold"]),
             Paragraph("Hyperparameter tuning with Optuna on validation engines", s["table_cell"]),
             Paragraph("<font color='#16A34A'><b>Done</b></font>", s["table_cell_bold"]),
-            Paragraph("TPE Bayesian search conducted on validation engines only (zero test leakage). Tuned LSTM window 40, hidden (32, 64), dropout 0.20, lr 0.0059 (Val RMSE 11.31, Test RMSE 13.52, NASA 378.1); 1D-CNN window 40, filters (32, 64, 64), kernels (7, 3, 5), lr 0.0007 (Val RMSE 14.34, Test RMSE 15.49, NASA 468.2).", s["table_cell"]),
+            Paragraph("TPE Bayesian search conducted on validation engines only (zero test leakage). Tuned LSTM window 40, hidden (32, 64), dropout 0.20, lr 0.0059 (Val RMSE 11.31; single test evaluation RMSE 13.52, NASA 378.1; 5-seed comparison follows in Sprint 4); 1D-CNN window 40, filters (32, 64, 64), kernels (7, 3, 5), lr 0.0007 (Val RMSE 14.34, Test RMSE 15.49, NASA 468.2).", s["table_cell"]),
         ],
         [
             Paragraph("<b>3.2</b>", s["table_cell_bold"]),
             Paragraph("Extend pipeline to FD002–FD004 (multi-condition & multi-fault)", s["table_cell"]),
             Paragraph("<font color='#16A34A'><b>Done</b></font>", s["table_cell_bold"]),
-            Paragraph("6-cluster KMeans operating regime normalization implemented for FD002/FD004. Dynamic sensor pruning per subset (retaining 14, 17, 16, 17 channels). Fixed window W = 30 used for multi-seed benchmark; left zero-padding for test engines &lt; 30 cycles.", s["table_cell"]),
+            Paragraph("6-cluster KMeans operating regime normalization implemented for FD002/FD004. Dynamic sensor pruning per subset (retaining 14, 17, 16, 17 channels). Multi-condition RMSE yielded 17–22 cycles; LSTM leads RF by 0.76 and 0.60 cycles on FD002/FD004 (within ~1 std). Fixed window W = 30 used for multi-seed benchmark; left zero-padding for test engines &lt; 30 cycles.", s["table_cell"]),
         ],
         [
             Paragraph("<b>3.3</b>", s["table_cell_bold"]),
             Paragraph("Uncertainty quantification (MC Dropout & Deep Ensemble)", s["table_cell"]),
             Paragraph("<font color='#16A34A'><b>Done</b></font>", s["table_cell_bold"]),
-            Paragraph("Epistemic uncertainty quantified via 50-pass MC Dropout and 5-seed Deep Ensemble. MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); intervals are narrower than nominal. Predictive standard deviation correlates with absolute error (r = 0.379, p &lt; 0.001).", s["table_cell"]),
+            Paragraph("Epistemic uncertainty quantified via 50-pass MC Dropout and 5-seed Deep Ensemble on baseline Stacked LSTM (Seed 42, Window 30). MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); intervals are narrower than nominal. Predictive standard deviation correlates with absolute error (r = 0.379, p &lt; 0.001).", s["table_cell"]),
         ],
         [
             Paragraph("<b>3.4</b>", s["table_cell_bold"]),
             Paragraph("Diagnostic error analysis & conservative RUL shifting", s["table_cell"]),
             Paragraph("<font color='#16A34A'><b>Done</b></font>", s["table_cell_bold"]),
-            Paragraph("Error breakdown across critical [0, 30], mid-life (30, 60], and early-life (60, 125] regimes. Top-10 worst engines audited (9 of 10 in early-life; mean σ = 8.31 vs fleet 7.04). Conservative shifting reached minimum NASA score at α = 1.0 (276.8, -34.0% penalty) and reduced late predictions from 57.0% to 19.0% at α = 2.0.", s["table_cell"]),
+            Paragraph("Error breakdown across critical [0, 30] (n=25), mid-life (30, 60] (n=14), and early-life (60, 125] (n=61 capped; n=50 plus 11 engines &gt; 125 raw) regimes. Top-10 worst engines audited (9 of 10 in early-life; mean σ = 8.31 vs fleet 7.04). Exploratory shifting reached minimum NASA score at α = 1.0 (276.8, -34.0% penalty) via bias correction; reduced late predictions to 19.0% at α = 2.0. Operational α* to be tuned on validation in Sprint 4.", s["table_cell"]),
         ],
         [
             Paragraph("<b>3.5</b>", s["table_cell_bold"]),
@@ -309,7 +313,7 @@ def generate_pdf_report(
         "For test engines with truncated observation histories (6 engines in FD002 and 11 engines in FD004 have &lt; 30 cycles, down to 19 cycles), "
         "<b>left zero-padding</b> was implemented to ensure uniform input dimensions of (30, C). "
         "<i>(Note: While the benchmark standardized on W = 30, subsequent Optuna tuning on FD001 identified W = 40 as optimal for single-subset modeling; "
-        "if W = 40 were extended to FD002/FD004, 18 engines in FD002 and 27 in FD004 would require padding).</i>", s["body"]
+        "if W = 40 were extended to FD002/FD004, 12 engines in FD002 and 16 in FD004 would require padding).</i>", s["body"]
     ))
     story.append(Spacer(1, 8))
 
@@ -367,9 +371,9 @@ def generate_pdf_report(
     story.append(Spacer(1, 5))
 
     story.append(Paragraph(
-        "<b>Key Benchmark Insights:</b> (1) The PyTorch Stacked LSTM achieved the lowest test RMSE on all four subsets (14.26 on FD001, 16.93 on FD002, 15.12 on FD003, and 19.97 on FD004), outperforming Random Forest, XGBoost, and 1D-CNN (which achieved 17.35 ± 1.03 on FD001). "
+        "<b>Key Benchmark Insights:</b> (1) The PyTorch Stacked LSTM achieved the lowest test RMSE across all four subsets (14.26 on FD001, 16.93 on FD002, 15.12 on FD003, and 19.97 on FD004). However, on the multi-condition subsets FD002 and FD004, the LSTM leads Random Forest by modest margins of 0.76 cycles (16.93 ± 0.58 vs. 17.69 ± 0.10) and 0.60 cycles (19.97 ± 0.46 vs. 20.57 ± 0.16) respectively—within approximately one standard deviation of model runs. "
         "(2) <i>Asymmetric Score Nuance:</i> While the LSTM has the lowest RMSE on all four subsets, it exhibits a worse NASA score than Random Forest on FD002 (2911.2 vs 1498.2) and than the 1D-CNN on FD004 (9297.6 vs 3462.4). Because the NASA metric penalizes late predictions exponentially, occasional late outlier predictions in multi-regime conditions substantially inflate the LSTM's total penalty. "
-        "(3) Operating regime clustering successfully maintained multi-condition test RMSE within approximately <b>17–22 cycles</b> across all subsets.", s["body"]
+        "(3) Operating regime clustering yielded test RMSE within approximately <b>17–22 cycles</b> across the multi-condition subsets (FD002 and FD004), whereas single-condition subsets (FD001 and FD003) achieved 14–17 cycles.", s["body"]
     ))
     story.append(Spacer(1, 6))
 
@@ -388,7 +392,7 @@ def generate_pdf_report(
         "Hyperparameter optimization was executed using Optuna's Tree-structured Parzen Estimator (TPE). "
         "<b>Rigorous Academic Safeguard:</b> The optimization objective function evaluated performance strictly on the "
         "<b>20 validation engines</b> (units 81–100), with <b>zero exposure to the test engines</b>. The test set was evaluated exactly once "
-        "for the optimal configuration selected by validation RMSE.", s["body"]
+        "for the optimal configuration selected by validation RMSE (13.52 cycles, NASA 378.1; a full 5-seed comparison follows in Sprint 4).", s["body"]
     ))
 
     lstm_opt = optuna_results.get("lstm", {})
@@ -439,6 +443,7 @@ def generate_pdf_report(
     story.append(Paragraph(
         "Deterministic point estimates of RUL are inadequate for mission-critical aviation operations. We implemented and benchmarked two "
         "uncertainty quantification techniques: <b>Monte Carlo Dropout</b> (50 stochastic forward passes at inference with active dropout) and <b>Deep Ensembles</b> (across 5 seeds). "
+        "<i>Model Attribution:</i> Uncertainty and shift analyses use the baseline Stacked LSTM, Seed 42, Window 30 (test RMSE 14.00, NASA 419.6). "
         "All metrics below are computed directly on the FD001 test fleet predictions (lstm_fd001_mc.csv and verify_uncertainty.py).", s["body"]
     ))
 
@@ -492,8 +497,8 @@ def generate_pdf_report(
     # SECTION 6: DIAGNOSTIC ERROR ANALYSIS & CONSERVATIVE SHIFTING
     story.append(Paragraph("6. Diagnostic Error Analysis & Conservative RUL Shifting (Task 3.4)", s["h1"]))
     story.append(Paragraph(
-        "To understand failure patterns, prediction errors were decomposed across three operational lifetime regimes based on raw true RUL: "
-        "<b>Critical Zone</b> [0, 30] cycles, <b>Mid-Life Zone</b> (30, 60] cycles, and <b>Early-Life Zone</b> (60, 125] cycles.", s["body"]
+        "To understand failure patterns, prediction errors were decomposed across three operational lifetime regimes based on capped target RUL (min(y, 125)): "
+        "<b>Critical Zone</b> [0, 30] cycles (n=25), <b>Mid-Life Zone</b> (30, 60] cycles (n=14), and <b>Early-Life Zone</b> (60, 125] cycles (n=61 capped; n=50 plus 11 engines &gt; 125 raw).", s["body"]
     ))
 
     err_regime_data = [
@@ -522,8 +527,9 @@ def generate_pdf_report(
     story.append(Spacer(1, 5))
 
     story.append(Paragraph(
-        "<b>Conservative Uncertainty-Guided RUL Shifting (y_shifted = y_hat - α * σ):</b> "
-        "The shift table below displays the exact progression computed by verify_uncertainty.py:", s["body"]
+        "<b>Conservative Uncertainty-Guided RUL Shifting Sensitivity Analysis (y_shifted = y_hat - α * σ):</b> "
+        "The shift table below displays an exploratory post-hoc sensitivity sweep computed by verify_uncertainty.py "
+        "(to prevent test leakage, α is not chosen from test scores; operational α* will be calibrated on validation in Sprint 4):", s["body"]
     ))
 
     shift_table_data = [
@@ -533,10 +539,10 @@ def generate_pdf_report(
         [Paragraph("0.4", s["table_cell"]), Paragraph("329.4", s["table_cell"]), Paragraph("-21.5%", s["table_cell"]), Paragraph("49.0%", s["table_cell"]), Paragraph("51.0%", s["table_cell"]), Paragraph("13.44", s["table_cell"]), Paragraph("9.82", s["table_cell"])],
         [Paragraph("0.6", s["table_cell"]), Paragraph("301.8", s["table_cell"]), Paragraph("-28.1%", s["table_cell"]), Paragraph("44.0%", s["table_cell"]), Paragraph("56.0%", s["table_cell"]), Paragraph("13.39", s["table_cell"]), Paragraph("9.85", s["table_cell"])],
         [Paragraph("0.8", s["table_cell"]), Paragraph("284.4", s["table_cell"]), Paragraph("-32.2%", s["table_cell"]), Paragraph("40.0%", s["table_cell"]), Paragraph("60.0%", s["table_cell"]), Paragraph("13.51", s["table_cell"]), Paragraph("10.02", s["table_cell"])],
-        [Paragraph("<b>1.0 (Optimal NASA)</b>", s["table_cell_bold"]), Paragraph("<b>276.8</b>", s["table_cell_bold"]), Paragraph("<b>-34.0%</b>", s["table_cell_bold"]), Paragraph("<b>32.0%</b>", s["table_cell_bold"]), Paragraph("68.0%", s["table_cell"]), Paragraph("13.79", s["table_cell"]), Paragraph("10.37", s["table_cell"])],
+        [Paragraph("<b>1.0 (Sensitivity Min)</b>", s["table_cell_bold"]), Paragraph("<b>276.8</b>", s["table_cell_bold"]), Paragraph("<b>-34.0%</b>", s["table_cell_bold"]), Paragraph("<b>32.0%</b>", s["table_cell_bold"]), Paragraph("68.0%", s["table_cell"]), Paragraph("13.79", s["table_cell"]), Paragraph("10.37", s["table_cell"])],
         [Paragraph("1.2", s["table_cell"]), Paragraph("278.0", s["table_cell"]), Paragraph("-33.7%", s["table_cell"]), Paragraph("29.0%", s["table_cell"]), Paragraph("71.0%", s["table_cell"]), Paragraph("14.21", s["table_cell"]), Paragraph("10.86", s["table_cell"])],
-        [Paragraph("1.5", s["table_cell"]), Paragraph("293.9", s["table_cell"]), Paragraph("-29.9%", s["table_cell"]), Paragraph("28.0%", s["table_cell"]), Paragraph("72.0%", s["table_cell"]), Paragraph("15.10", s["table_cell"]), Paragraph("11.64", s["table_cell"])],
-        [Paragraph("2.0 (Max Conservatism)", s["table_cell"]), Paragraph("359.8", s["table_cell"]), Paragraph("-14.2%", s["table_cell"]), Paragraph("<b>19.0%</b>", s["table_cell_bold"]), Paragraph("81.0%", s["table_cell"]), Paragraph("17.12", s["table_cell"]), Paragraph("13.35", s["table_cell"])],
+        [Paragraph("1.5", s["table_cell"]), Paragraph("293.9", s["table_cell"]), Paragraph("-30.0%", s["table_cell"]), Paragraph("28.0%", s["table_cell"]), Paragraph("72.0%", s["table_cell"]), Paragraph("15.10", s["table_cell"]), Paragraph("11.64", s["table_cell"])],
+        [Paragraph("2.0 (Max Conservatism)", s["table_cell"]), Paragraph("359.8", s["table_cell"]), Paragraph("-14.3%", s["table_cell"]), Paragraph("<b>19.0%</b>", s["table_cell_bold"]), Paragraph("81.0%", s["table_cell"]), Paragraph("17.12", s["table_cell"]), Paragraph("13.35", s["table_cell"])],
     ]
     t_shift = Table(shift_table_data, colWidths=[80, 75, 75, 70, 70, 68, 66])
     t_shift.setStyle(TableStyle([
@@ -550,10 +556,11 @@ def generate_pdf_report(
     story.append(Spacer(1, 5))
 
     story.append(Paragraph(
-        "<b>Shifting Dynamics:</b> The NASA penalty curve bottoms out near <b>α ≈ 1.0</b> at <b>276.8</b> (a 34.0% reduction from baseline 419.6), "
-        "while late predictions fall from 57.0% down to 32.0%. Beyond α = 1.0, the NASA score rises again due to accumulating early penalties. "
-        "Shifting further to α = 2.0 cuts late predictions down to <b>19.0%</b>, but incurs an RMSE increase of <b>+3.12 cycles</b> (14.00 to 17.12). "
-        "This non-trivial trade-off establishes the exact empirical foundation for Sprint 4's cost-aware maintenance decision layer.", s["body"]
+        "<b>Shifting Dynamics & Bias Correction:</b> The NASA penalty curve bottoms out near <b>α ≈ 1.0</b> at <b>276.8</b> (a 34.0% reduction from baseline 419.6), "
+        "while late predictions fall from 57.0% down to 32.0%. Crucially, shifting by α · σ up to α ≈ 1.0 simultaneously improves RMSE (14.00 down to 13.39 at α = 0.6 and 13.79 at α = 1.0) "
+        "because the baseline model errs late 57.0% of the time, so shifting acts initially as a directional bias correction. "
+        "The real accuracy cost begins beyond α &gt; 1.2, rising to 15.10 at α = 1.5 and 17.12 at α = 2.0 (+3.12 cycles), cutting late predictions down to <b>19.0%</b>. "
+        "This empirical trade-off provides the exact foundation for Sprint 4's cost-aware maintenance decision layer.", s["body"]
     ))
     story.append(Spacer(1, 6))
 

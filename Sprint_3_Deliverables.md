@@ -16,9 +16,9 @@ Sprint 3 achieves all targeted objectives defined in the capstone project plan, 
 ### Major Milestone Breakthroughs in Sprint 3:
 1. **Multi-Condition Generalization (Task 3.2):** Extended the prognostics pipeline from the single-regime sea-level baseline (FD001) to all four NASA C-MAPSS subsets (FD001, FD002, FD003, FD004; 265,963 total records). Developed dynamic per-subset sensor variance selection and 6-cluster KMeans operating regime normalization to decouple flight envelope swings from underlying component degradation.
 2. **Multi-Seed Robustness Framework:** Resolved the single-run evaluation limitation of Sprint 2 by benchmarking all four architectures (Random Forest, XGBoost, PyTorch Stacked LSTM, PyTorch 1D-CNN) across **5 fixed random seeds** (`[42, 123, 456, 789, 2026]`), reporting empirical **mean ± std**.
-3. **Leak-Free Optuna Hyperparameter Optimization (Task 3.1):** Conducted Tree-structured Parzen Estimator (TPE) Bayesian hyperparameter tuning evaluating strictly on validation engines (zero test set exposure), discovering optimal configurations for temporal sequence modeling (Stacked LSTM: window 40, hidden 32/64, lr 0.0059; Val RMSE 11.31, Test RMSE 13.52, NASA 378.1).
-4. **Epistemic Uncertainty Quantification (Task 3.3):** Implemented 50-pass Monte Carlo Dropout and 5-seed Deep Ensembles: MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); $\sigma$–$|error|$ correlation was $r = 0.379$ ($p < 0.001$).
-5. **Conservative Uncertainty-Guided RUL Shifting (Task 3.4):** Formulated an asymmetric risk-mitigation policy ($\hat{y}_{shifted} = \hat{y} - \alpha \cdot \sigma$): at $\alpha = 1.0$, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at $\alpha = 2.0$), paving the way for the Sprint 4 cost-aware decision layer.
+3. **Leak-Free Optuna Hyperparameter Optimization (Task 3.1):** Conducted Tree-structured Parzen Estimator (TPE) Bayesian hyperparameter tuning evaluating strictly on validation engines (zero test set exposure), discovering optimal configurations for temporal sequence modeling (Stacked LSTM: window 40, hidden 32/64, lr 0.0059; Val RMSE 11.31; single test evaluation RMSE 13.52, NASA 378.1; 5-seed comparison follows in Sprint 4).
+4. **Epistemic Uncertainty Quantification (Task 3.3):** Implemented 50-pass Monte Carlo Dropout and 5-seed Deep Ensembles on baseline Stacked LSTM (Seed 42, Window 30): MC-dropout 90% intervals covered 63% of test engines (ensemble 39%); $\sigma$–$|error|$ correlation was $r = 0.379$ ($p < 0.001$).
+5. **Conservative Uncertainty-Guided RUL Shifting (Task 3.4):** Formulated an exploratory sensitivity analysis ($\hat{y}_{shifted} = \hat{y} - \alpha \cdot \sigma$): at $\alpha = 1.0$, the NASA score fell by 34.0% (from 419.6 to 276.8) and late predictions fell from 57.0% to 32.0% (and down to 19.0% at $\alpha = 2.0$). Shifting initially acts as a directional bias correction (RMSE improves to 13.39 at $\alpha = 0.6$ and 13.79 at $\alpha = 1.0$), with accuracy costs beginning beyond $\alpha > 1.2$. Operational $\alpha^*$ will be formally calibrated on validation in Sprint 4.
 
 ---
 
@@ -44,13 +44,14 @@ Sprint 3 achieves all targeted objectives defined in the capstone project plan, 
 | **FD004** | 6 Operating Regimes | 2 (HPC + Fan) | **Stacked LSTM** | **19.97 ± 0.46** | **9,297.6 ± 3,672.4** | 54.1 ± 6.4% | 62.2s |
 
 *Key Findings Across Datasets:*
-- The Stacked LSTM achieved the lowest RMSE across all four subsets.
-- However, the LSTM had a worse NASA score than Random Forest on FD002 (2911.2 vs 1498.2) and than 1D-CNN on FD004 (9297.6 vs 3462.4), demonstrating that occasional late prediction outliers incur severe exponential penalties under complex operating regimes.
-- Across all multi-condition subsets, operating regime normalization maintained RMSE in the range of **17–22 cycles**.
+- The Stacked LSTM achieved the lowest RMSE across all four subsets. However, on multi-condition subsets FD002 and FD004, the LSTM leads Random Forest by modest margins of 0.76 cycles (16.93 ± 0.58 vs. 17.69 ± 0.10) and 0.60 cycles (19.97 ± 0.46 vs. 20.57 ± 0.16) respectively—differences within approximately one standard deviation of model runs.
+- The LSTM had a worse NASA score than Random Forest on FD002 (2911.2 vs 1498.2) and than 1D-CNN on FD004 (9297.6 vs 3462.4), demonstrating that occasional late prediction outliers incur severe exponential penalties under complex operating regimes.
+- Operating regime normalization yielded test RMSE in the range of **17–22 cycles** on multi-condition subsets (FD002 and FD004), whereas single-condition subsets (FD001 and FD003) achieved 14–17 cycles.
 
 ---
 
 ## Uncertainty Quantification & Calibration Summary (FD001 Test Set)
+*Model Attribution:* Evaluated on baseline Stacked LSTM, Seed 42, Window 30 (test RMSE 14.00, NASA 419.6).
 
 | Methodology | Predictive RMSE | Mean Uncertainty ($\bar{\sigma}$) | Empirical 90% Coverage | Mean Interval Width | Pearson Correlation ($r$) | Spearman Rank ($\rho$) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -71,10 +72,14 @@ Sprint 3 achieves all targeted objectives defined in the capstone project plan, 
 | **0.4** | 329.4 | -21.5% | 49.0% | 51.0% | 13.44 | 9.82 |
 | **0.6** | 301.8 | -28.1% | 44.0% | 56.0% | 13.39 | 9.85 |
 | **0.8** | 284.4 | -32.2% | 40.0% | 60.0% | 13.51 | 10.02 |
-| **1.0 (Optimal NASA Score)** | **276.8** | **-34.0%** | **32.0%** | **68.0%** | **13.79** | **10.37** |
+| **1.0 (Sensitivity Minimum)** | **276.8** | **-34.0%** | **32.0%** | **68.0%** | **13.79** | **10.37** |
 | **1.2** | 278.0 | -33.7% | 29.0% | 71.0% | 14.21 | 10.86 |
-| **1.5** | 293.9 | -29.9% | 28.0% | 72.0% | 15.10 | 11.64 |
-| **2.0 (Max Conservatism)** | 359.8 | -14.2% | **19.0%** | **81.0%** | 17.12 | 13.35 |
+| **1.5** | 293.9 | -30.0% | 28.0% | 72.0% | 15.10 | 11.64 |
+| **2.0 (Max Conservatism)** | 359.8 | -14.3% | **19.0%** | **81.0%** | 17.12 | 13.35 |
+
+*Sensitivity Analysis & Bias Correction Notes:*
+- **Zero Test Leakage Safeguard:** This sensitivity table explores the response of the NASA scoring function; $\alpha = 1.0$ is not chosen from test scores. The operational risk multiplier $\alpha^*$ will be formally tuned on validation engine loss distributions in Sprint 4.
+- **Directional Bias Correction:** Shifting by $\alpha \cdot \sigma$ up to $\alpha \approx 1.0$ improves RMSE (14.00 down to 13.39 at $\alpha = 0.6$ and 13.79 at $\alpha = 1.0$) because the baseline model errs late 57.0% of the time. The genuine accuracy cost begins beyond $\alpha > 1.2$.
 
 ---
 
